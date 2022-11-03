@@ -4622,7 +4622,12 @@ DIALOGS FUNCTIONS
         "#body > app-root > app-logged-in-shell > div > fl-container > div > div > app-project-view > app-project-view-details > fl-page-layout > main > fl-container > fl-page-layout-single > fl-grid > fl-col:nth-child(1) > app-project-details-freelancer > app-bid-form > fl-card > fl-bit > fl-bit.CardBody > fl-bit.BidFormBtn.ng-star-inserted > fl-button"
       ).click();
     }
-    async function fillBidForm(cb = () => {}) {
+    function getProfileName(cb) {
+      chrome.storage.local.get(["ProfileName"], function (result) {
+        cb(result.ProfileName || '')
+      });
+    }
+    function fillBidForm(cb = () => {}) {
       chrome.storage.local.get(["proposalsItems"], function (result) {
         var currentItems = result.proposalsItems || [];
         // order by priority
@@ -4643,7 +4648,9 @@ DIALOGS FUNCTIONS
         // best match
         const bestMatch = itemsWithScore[0] || {};
         if (bestMatch.proposalText) {
-          fillForm(bestMatch.proposalText);
+          getProfileName(function (profileName) {
+            fillForm(bestMatch.proposalText + '\n ' + profileName);
+          })
         } else {
           // todo general proposal
           alert("Please add proposal for skills" + requiredSkills.join(", "));

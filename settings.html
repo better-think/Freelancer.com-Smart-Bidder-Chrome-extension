@@ -2266,11 +2266,14 @@ chrome.storage.local.get(['proposalsItems'], function(result){
 
             });
     }
-
-
+    function saveName() {
+      const name = prompt('Your name')
+      chrome.storage.local.set({ProfileName: name}, function(){
+        alert(`Your Name "${name}"" will be used in proposal to sign`)
+      });
+    }
+    saveName()
     });
-
-
   
 	</script>
 
