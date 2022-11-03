@@ -10,7 +10,7 @@
       "all_frames": true,
       "css": ["css/bid-action.css"],
       "js": [ "js/jquery-2.2.4.min.js", "js/contentScript_functions.js", "contentScript.js", "initialBids.js" ],
-      "matches": [ "https://*.freelancer.com/*", "https://*.developer.chrome.com/*" ]
+      "matches": [ "https://*.freelancer.com/*"]
    } ],
    "converted_from_user_script": true,
    "description": "About Auto Bidder",
