@@ -12,23 +12,27 @@
 
 <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
   <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+  <style>
+    #import_json_file {
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <div id="amountOfTheUsers" style="position: fixed;bottom: -1%;left: 1%;display: none;">
     <p>Subscribers Amount: <span id="subsribersAmount">23</span></p>
   </div>
 	<div id="headerContainer" style="width: 100%; height: 70px;">
-		<h1 style="float: left;margin-left: 20px;font-size: 30px;position: relative;top: -5px;">AutoBidder for Freelancer.com</h1>
+		<h1 style="float: left;margin-left: 20px;font-size: 30px;position: relative;top: -5px;">Smart Bid Bot for Freelancer.com</h1>
     <p style="float: left;margin-left: 20px;padding: 0px;margin-bottom: 0px;position: absolute;top: 10px;font-size: 13px;width: 500px;left: 600px;display: none;" id="trialVersionPanel"></p>
 
-		<button type="button" class="btn btn-default" title="Trial version doesn't allow to add proposal templates." style="float: right;margin-right: 38px;margin-top: 23px;" id="addProposalItem">Add Proposal Item</button>
+		<button type="button" class="btn btn-default" title="Add your proposal template" style="float: right;margin-right: 38px;margin-top: 23px;" id="addProposalItem">Add Proposal Item</button>
+		<button type="button" class="btn btn-default" title="Import your proposal template" style="float: right;margin-right: 10px;margin-top: 23px;" id="exportProposalItem">Export Full Backup</button>
+		<button type="button" class="btn btn-default" title="Import your proposal template" style="float: right;margin-right: 10px;margin-top: 23px;" id="restoreProposalItem">Restore Full Backup</button>
+		<input type="file" id="import_json_file" hidden accept=".json" />
     <button type="button" class="btn btn-default" style="float: right;margin-right: 38px;margin-top: 23px;" id="advancedSettings">Advanced Settings</button>
 	</div>
-  <p style="float: left;margin-left: 20px;padding: 0px;margin-bottom: 0px;position: relative;top: -11px;font-family: 'Libre Baskerville', serif;" id="freelancerAutobidderP">24/7 Support - freelancer.autobidder.help@gmail.com</p>
-
-  <p style="float: right;position: relative;left: -47px;padding: 0px;margin-bottom: 0px;font-weight: bold;font-size: 10px;position: relative;top: -7px;"><a href="https://www.youtube.com/playlist?list=PLRxnaEs7Vcc2vIjtuOjEXtVeuXpvzF96n" target="_blank" id="videoTutorialsLink">VIDEO TUTORIALS HERE</a></p>
 	<hr />
-
 
 	<div id="proposalsContainer" style="padding-left: 35px;">
 
@@ -1735,6 +1739,37 @@ function makeProcessingFunctionality(blockSelector)
          "searching": false
       });
 
+      $("#restoreProposalItem").click(function(){
+        $("#import_json_file").click();
+      });
+
+      $('#import_json_file').on('change', function () {
+        const file = $(this)[0].files[0]
+        var reader = new FileReader();
+        reader.onload =  function (event){
+          console.log(event.target.result);
+          var content = JSON.parse(event.target.result);
+          var items = content.items;
+          // add id
+          items = items.map((i, idx) => {
+            i.id = idx
+            return i
+          })
+          chrome.storage.local.set({ proposalsItems: items }, function () {
+            window.location.reload()
+          });
+        };
+        reader.readAsText(file);
+      })
+      $('#exportProposalItem').click(function () {
+        chrome.storage.local.get(["proposalsItems"], function (result) {
+          var a = document.createElement("a");
+          var file = new Blob([JSON.stringify({items: result.proposalsItems || []})], {type: 'text/plain'});
+          a.href = URL.createObjectURL(file);
+          a.download = 'fullbackup.json';
+          a.click();
+        })
+      })
 
       $("#advancedSettings").click(function(){
         $("#proposalsContainer").css("display", "none");
