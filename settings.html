@@ -38,10 +38,12 @@
     			<tr>
     				<th width="8%">Bid Size</th>
     				<th width="10%">Completion Days</th>
-    				<th width="8%">Priority</th>
+    				<th>Priority</th>
     				<th>Skills To Include</th>
     				<th>Skills To Exclude</th>
             <th>Countries to ignore</th>
+            <th>Budget</th>
+            <th>Bidget(Hourly))</th>
             <th width="30%">Proposal Text</th>
             <th width="12%">Actions</th>
     			</tr>
@@ -206,6 +208,26 @@ var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(glc
     		  <input type="text" class="form-control" id="countries_to_ignore" name="countries_to_ignore"  style="width: 160px;">
   		  </div>
 	</div>
+  <div class="form-column ">
+    <div class="form-group">
+      <label for="min_budget">Min<span class="tooltips glyphicon glyphicon-question-sign" title="Minimum budget"></span></label>
+      <input type="number" class="form-control" id="min_budget" name="min_budget"  style="width: 160px;">
+    </div>
+    <div class="form-group">
+      <label for="max_budget">Max<span class="tooltips glyphicon glyphicon-question-sign" title="Maximum budget"></span></label>
+      <input type="text" class="form-control" id="max_budget" name="max_budget"  style="width: 160px;">
+    </div>
+  </div>
+  <div class="form-column ">
+    <div class="form-group">
+      <label for="hr_min_budget">Min(Hourly)<span class="tooltips glyphicon glyphicon-question-sign" title="Minimum budget"></span></label>
+      <input type="number" class="form-control" id="hr_min_budget" name="hr_min_budget"  style="width: 160px;">
+    </div>
+    <div class="form-group">
+      <label for="hr_max_budget">Max(Hourly)<span class="tooltips glyphicon glyphicon-question-sign" title="Maximum budget"></span></label>
+      <input type="text" class="form-control" id="hr_max_budget" name="hr_max_budget"  style="width: 160px;">
+    </div>
+  </div>
   <div style="width: 100%;">
       <textarea placeholder="Enter proposal text" name="proposal_text" class="form-control" style="width: 528.5px;height: 200px;" maxlength="1500"></textarea>
   </div>
@@ -246,6 +268,26 @@ var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(glc
           <label for="pwd">Countries To Ignore: <span class="tooltips glyphicon glyphicon-question-sign" title="Clients from these countries will be ignored by the bot.Separate values by comma.Example: India,USA.If you have any questions regarding the alghoritm, you can contact our 24/7 support - freelancer.autobidder.help@gmail.com."></span></label>
           <input type="text" class="form-control" id="countries_to_ignore" name="countries_to_ignore"  style="width: 160px;">
         </div>
+  </div>
+  <div class="form-column ">
+    <div class="form-group">
+      <label for="min_budget">Min<span class="tooltips glyphicon glyphicon-question-sign" title="Minimum budget"></span></label>
+      <input type="number" class="form-control" id="min_budget" name="min_budget"  style="width: 160px;">
+    </div>
+    <div class="form-group">
+      <label for="max_budget">Max<span class="tooltips glyphicon glyphicon-question-sign" title="Maximum budget"></span></label>
+      <input type="text" class="form-control" id="max_budget" name="max_budget"  style="width: 160px;">
+    </div>
+  </div>
+  <div class="form-column ">
+    <div class="form-group">
+      <label for="hr_min_budget">Min(Hourly)<span class="tooltips glyphicon glyphicon-question-sign" title="Minimum budget"></span></label>
+      <input type="number" class="form-control" id="hr_min_budget" name="hr_min_budget"  style="width: 160px;">
+    </div>
+    <div class="form-group">
+      <label for="hr_max_budget">Max(Hourly)<span class="tooltips glyphicon glyphicon-question-sign" title="Maximum budget"></span></label>
+      <input type="text" class="form-control" id="hr_max_budget" name="hr_max_budget"  style="width: 160px;">
+    </div>
   </div>
   <div style="width: 100%;">
       <textarea placeholder="Enter proposal text" name="proposal_text" class="form-control" style="width: 528.5px;height: 200px;" maxlength="1500"></textarea>
@@ -1033,17 +1075,17 @@ document.onmousemove = function(e){
   var cursorY = (window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
 
 
-  console.log("Current Cursor X: " + cursorX);
-  console.log("Current Cursor Y: " + cursorY);
+  // console.log("Current Cursor X: " + cursorX);
+  // console.log("Current Cursor Y: " + cursorY);
 
   var documentHeight = $(window).height();
   var documentWidth = $(window).width();
 
-  console.log("Current Document Height: " + documentHeight);
-  console.log("Current Document Width: " + documentWidth);
+  // console.log("Current Document Height: " + documentHeight);
+  // console.log("Current Document Width: " + documentWidth);
 
-  console.log(((cursorY/(documentHeight - window.pageYOffset) * 100)));
-  console.log(((cursorX/documentWidth * 100)));
+  // console.log(((cursorY/(documentHeight - window.pageYOffset) * 100)));
+  // console.log(((cursorX/documentWidth * 100)));
 
   // 
   if((((cursorY-window.pageYOffset)/(documentHeight) * 100) < 20) && ((cursorX/documentWidth * 100) > 80))
@@ -1731,11 +1773,15 @@ function makeProcessingFunctionality(blockSelector)
 
         var bid_amount = $('input[name="bid_amount"]').val();
         var bid_days = $('input[name="bid_days"]').val();
-        var bid_skills_to_include = $('input[name="bid_skills_to_include"]').val();
+        var bid_skills_to_include = $('input[name="bid_skills_to_include"]').val().toLowerCase();
         var bid_skills_to_exclude = $('input[name="bid_skills_to_exclude"]').val();
         var priority = $('input[name="priority"]').val();
         var countries_to_ignore = $('input[name="countries_to_ignore"]').val();
         var proposalText = $('textarea[name="proposal_text"]').val();
+        var min_budget = $('input[name="min_budget"]').val();
+        var max_budget = $('input[name="max_budget"]').val();
+        var hr_min_budget = $('input[name="hr_min_budget"]').val();
+        var hr_max_budget = $('input[name="hr_max_budget"]').val();
 
 
         var splitted_bid_skills_to_include = bid_skills_to_include.split(",");
@@ -1852,7 +1898,11 @@ function makeProcessingFunctionality(blockSelector)
               bid_skills_to_exclude : bid_skills_to_exclude,
               priority : priority,
               countries_to_ignore : countries_to_ignore, 
-              proposalText : proposalText
+              proposalText : proposalText,
+              min_budget: min_budget,
+              max_budget: max_budget,
+              hr_min_budget: hr_min_budget,
+              hr_max_budget: hr_max_budget
             });
 
 
@@ -1887,6 +1937,10 @@ chrome.storage.local.get(['proposalsItems'], function(result){
               $('input[name="bid_skills_to_include"]').val("");
               $('input[name="bid_skills_to_exclude"]').val("");
               $('input[name="priority"]').val("");
+              $('input[name="min_budget"]').val("");
+              $('input[name="max_budget"]').val("");
+              $('input[name="hr_min_budget"]').val("");
+              $('input[name="hr_max_budget"]').val("");
               $('input[name="countries_to_ignore"]').val("");
               $('textarea[name="proposal_text"]').val("");
             });
@@ -1901,12 +1955,15 @@ chrome.storage.local.get(['proposalsItems'], function(result){
 
         var bid_amount = $('#editProposalBid input[name="bid_amount"]').val();
         var bid_days = $('#editProposalBid input[name="bid_days"]').val();
-        var bid_skills_to_include = $('#editProposalBid input[name="bid_skills_to_include"]').val();
+        var bid_skills_to_include = $('#editProposalBid input[name="bid_skills_to_include"]').val().toLowerCase();
         var bid_skills_to_exclude = $('#editProposalBid input[name="bid_skills_to_exclude"]').val();
         var priority = $('#editProposalBid input[name="priority"]').val();
         var countries_to_ignore = $('#editProposalBid input[name="countries_to_ignore"]').val();
         var proposalText = $('#editProposalBid textarea[name="proposal_text"]').val();
-
+        var min_budget = $('#editProposalBid input[name="min_budget"]').val();
+        var max_budget = $('#editProposalBid input[name="max_budget"]').val();
+        var hr_min_budget = $('#editProposalBid input[name="hr_min_budget"]').val();
+        var hr_max_budget = $('#editProposalBid input[name="hr_max_budget"]').val();
 
         console.log("SAVING EDITS INFO...");
         console.log(countries_to_ignore);
@@ -2015,6 +2072,10 @@ chrome.storage.local.get(['proposalsItems'], function(result){
                   resultProposals[i].proposalText = proposalText;
                   resultProposals[i].bid_skills_to_exclude = bid_skills_to_exclude;
                   resultProposals[i].countries_to_ignore = countries_to_ignore;
+                  resultProposals[i].min_budget = min_budget;
+                  resultProposals[i].max_budget = max_budget;
+                  resultProposals[i].hr_min_budget = hr_min_budget;
+                  resultProposals[i].hr_max_budget = hr_max_budget;
                }
             }
 
@@ -2082,6 +2143,8 @@ chrome.storage.local.get(['proposalsItems'], function(result){
                   currentItems[i].bid_skills_to_include,
                   currentItems[i].bid_skills_to_exclude,
                   currentItems[i].countries_to_ignore,
+                  `${currentItems[i].min_budget}-${currentItems[i].max_budget}`,
+                  `${currentItems[i].hr_min_budget}-${currentItems[i].hr_max_budget}`,
                   currentItems[i].proposalText,
                   '<button class="btn btn-default edit-bid-button" data-item-id="' + currentItems[i].id + '">Edit</button><button class="btn btn-default delete-bid-button" data-item-id="' + currentItems[i].id + '">Delete</button>'
                 ]);
@@ -2148,7 +2211,15 @@ chrome.storage.local.get(['proposalsItems'], function(result){
               $('#editProposalBid input[name="priority"]').val(currentTdToEdit.find("td").eq(2).text());
               $('#editProposalBid input[name="countries_to_ignore"]').val(currentTdToEdit.find("td").eq(5).text());
 
-              $('#editProposalBid textarea[name="proposal_text"]').val(currentTdToEdit.find("td").eq(6).text());
+
+              const [min_budget, max_budget] = currentTdToEdit.find("td").eq(6).text().split('-')
+              const [hr_min_budget, hr_max_budget] = currentTdToEdit.find("td").eq(7).text().split('-')
+              $('#editProposalBid input[name="min_budget"]').val(min_budget);
+              $('#editProposalBid input[name="max_budget"]').val(max_budget);
+              $('#editProposalBid input[name="hr_min_budget"]').val(hr_min_budget);
+              $('#editProposalBid input[name="hr_max_budget"]').val(hr_max_budget);
+
+              $('#editProposalBid textarea[name="proposal_text"]').val(currentTdToEdit.find("td").eq(8).text());
 
               $("#cancel-edit-button").click(function(){
                 $("#addProposalItem").css("display", "block");

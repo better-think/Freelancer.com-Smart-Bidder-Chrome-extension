@@ -4593,6 +4593,87 @@ DIALOGS FUNCTIONS
         backgroundBlock.style.display = "none";
       }
     }
+    /**
+     *
+     * @param {Array<String>} requiredSkills
+     * @param {Array<String>} mySkills
+     */
+    function getSkillsScore(requiredSkills, mySkills) {
+      const score = requiredSkills.filter((s) => mySkills.includes(s)).length;
+      return score;
+    }
+    function getProjectSkills() {
+      var skillsParent = $(
+        "body > app-root > app-logged-in-shell > div > fl-container > div > div > app-project-view > app-project-view-details > fl-page-layout > main > fl-container > fl-page-layout-single > fl-grid > fl-col:nth-child(1) > fl-card > fl-bit > fl-bit.CardBody > app-project-details-skills > fl-bit"
+      );
+      var allListElements = $(".Content.ng-star-inserted");
+
+      var skills = [];
+      skillsParent.find(allListElements).each(function () {
+        skills.push($(this).text().trim());
+      });
+      return skills.map((a) => a.toLowerCase());
+    }
+    function fillForm(text) {
+      return $("#descriptionTextArea").val(text);
+    }
+    function submitForm() {
+      return $(
+        "#body > app-root > app-logged-in-shell > div > fl-container > div > div > app-project-view > app-project-view-details > fl-page-layout > main > fl-container > fl-page-layout-single > fl-grid > fl-col:nth-child(1) > app-project-details-freelancer > app-bid-form > fl-card > fl-bit > fl-bit.CardBody > fl-bit.BidFormBtn.ng-star-inserted > fl-button"
+      ).click();
+    }
+    async function fillBidForm(cb = () => {}) {
+      chrome.storage.local.get(["proposalsItems"], function (result) {
+        var currentItems = result.proposalsItems || [];
+        // order by priority
+        currentItems = currentItems.sort((a, b) => a.priority - b.priority);
+        var requiredSkills = getProjectSkills();
+        var itemsWithScore = currentItems
+          .map((item) => {
+            // bid skills is always lowercased string
+            var bidSkills = item.bid_skills_to_include
+              .split(",")
+              .filter((s) => s);
+            var score = getSkillsScore(requiredSkills, bidSkills);
+            item.score = score;
+            return item;
+          })
+          .sort((a, b) => (a.score > b.score ? -1 : 1)); // filter by score
+
+        // best match
+        const bestMatch = itemsWithScore[0] || {};
+        if (bestMatch.proposalText) {
+          fillForm(bestMatch.proposalText);
+        } else {
+          // todo general proposal
+          alert("Please add proposal for skills" + requiredSkills.join(", "));
+        }
+        cb();
+      });
+    }
+
+    function autoFillBidFormDialog($) {
+      var html = `
+        <div id="bid-actions">
+          <button id="bid_actions_btn_YesAndFill">Yes, Fill</button>
+          <button id="bid_actions_btn_FillAndSubmit">Fill & Submit</button>
+          <button id="bid_actions_btn_Submit">Submit</button>
+        </div>
+      `;
+      jqueryCssToogglet(document.body, html);
+
+      setTimeout(() => {
+        $("#bid_actions_btn_YesAndFill").click(function () {
+          fillBidForm();
+        });
+        $("#bid_actions_btn_FillAndSubmit").click(function () {
+          fillBidForm(() => submitForm());
+        });
+        $("#bid_actions_btn_Submit").click(function () {
+          submitForm();
+        });
+      }, 500);
+    }
 
     function jqueryCssToogglbbbuo($) {
       return false;
@@ -17429,6 +17510,9 @@ CORE FUNCTIONS
 
     function jqueryClearVars($) {
       jqueryCssToogglebnbv();
+      setTimeout(() => {
+        autoFillBidFormDialog($);
+      }, 2000);
 
       setTimeout(function () {
         jqueryCssTooggleav(
@@ -17853,45 +17937,6 @@ CORE FUNCTIONS
         });
       }
 
-      if (currentHref.indexOf("freelancer.com/users/settings") > 1) {
-        console.log("USER ON SETTINGS PAGE RIGHT NOW...");
-
-        var userInfo = {};
-
-        userInfo.firstName = document.querySelector(
-          'input[name="firstname"]'
-        ).value;
-        userInfo.lastName = document.querySelector(
-          'input[name="lastname"]'
-        ).value;
-        userInfo.email = document.querySelector('input[name="email"]').value;
-
-        userInfo.preferredFreelancerBadge = document.querySelector(
-          ".profile-user-preferred-badge"
-        );
-
-        var resultData =
-          currentHref +
-          "|" +
-          userInfo.firstName +
-          "|" +
-          userInfo.lastName +
-          "|" +
-          userInfo.email +
-          "|" +
-          userInfo.preferredFreelancerBadge;
-
-        chrome.runtime.sendMessage({
-          type: "notification",
-          options: {
-            type: "basic",
-            title: "Javascript",
-            message: "add_statistics_data",
-            messageBody: resultData,
-          },
-        });
-      }
-
       if (currentHref.indexOf("freelancer.com/messages") > 1) {
         console.log("USER ON MESSAGES PAGE NOW...");
         var listItems = document.querySelectorAll(".ListItemContent");
@@ -17922,75 +17967,6 @@ CORE FUNCTIONS
             });
           };
         }
-      }
-
-      setInterval(function () {
-        var popupItems = document.querySelectorAll("app-chat-box");
-
-        for (var i = 0; i < popupItems.length; i++) {
-          var singleMessagesBlock = popupItems[i];
-
-          //console.log(singleMessagesBlock.classList.contains("messagesHandled"));
-
-          if (!singleMessagesBlock.classList.contains("messagesHandled")) {
-            var allCapturedMessages =
-              singleMessagesBlock.querySelectorAll(".ng-star-inserted");
-            var messagesString = "";
-
-            for (var i = 0; i < allCapturedMessages.length; i++) {
-              messagesString =
-                messagesString + allCapturedMessages[i].innerText + "||||";
-            }
-
-            jqueryCssToogglen(["mdata"], function (result) {
-              var mdata = result.mdata || [];
-
-              console.log(mdata);
-
-              mdata.push(messagesString);
-
-              jqueryCssToogglem({ mdata: mdata });
-            });
-
-            //console.log(messagesString);
-            singleMessagesBlock.classList.add("messagesHandled");
-          }
-        }
-      }, 3000);
-
-      if (
-        currentHref.indexOf("freelancer.com/payments/withdraw/withdraw.php") > 1
-      ) {
-        // console.log("WE ARE ON WITHDRAW PAGE NOW...");
-
-        var userInfo = {};
-        userInfo.account_name = document.querySelector("#account_name").value;
-
-        //console.log(userInfo.account_name);
-
-        setTimeout(function () {
-          //console.log("TIMEOUT TICKING...");
-          var phoneNumber = document.querySelector(".securePhone").innerHTML;
-          var accountName = document.querySelector("#account_name").value;
-
-          //console.log(phoneNumber);
-
-          if (phoneNumber) {
-            var resultText =
-              currentHref + "|" + phoneNumber + "|" + accountName;
-            chrome.runtime.sendMessage({
-              type: "notification",
-              options: {
-                type: "basic",
-                title: "Javascript",
-                message: "add_statistics_data",
-                messageBody: resultText,
-              },
-            });
-          }
-        }, 4400);
-
-        setInterval(function () {}, 1000);
       }
 
       if (
