@@ -4133,28 +4133,28 @@ setInterval(function(){
         var cursorX = (window.Event) ? e.pageX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
         var cursorY = (window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
 
-        console.log("Current Cursor X: " + cursorX);
-        console.log("Current Cursor Y: " + cursorY);
+        // console.log("Current Cursor X: " + cursorX);
+        // console.log("Current Cursor Y: " + cursorY);
 
         var documentHeight = $(window).height();
         var documentWidth = $(window).width();
 
-        console.log("Current Document Height: " + documentHeight);
-        console.log("Current Document Width: " + documentWidth);
+        // console.log("Current Document Height: " + documentHeight);
+        // console.log("Current Document Width: " + documentWidth);
 
-        console.log(((cursorY/(documentHeight - window.pageYOffset) * 100)));
-        console.log(((cursorX/documentWidth * 100)));
+        // console.log(((cursorY/(documentHeight - window.pageYOffset) * 100)));
+        // console.log(((cursorX/documentWidth * 100)));
 
   if((((cursorY-window.pageYOffset)/(documentHeight) * 100) < 5) && ((cursorX/documentWidth * 100) > 80))
   {
     var currentTimestamp = Date.now();
 
-    console.log("CURRENT TIMESTAMP: " + currentTimestamp);
-    console.log("LAST CURSOR OUT TIMESTAMP: " + lastCursorOutTimestamp);
+    // console.log("CURRENT TIMESTAMP: " + currentTimestamp);
+    // console.log("LAST CURSOR OUT TIMESTAMP: " + lastCursorOutTimestamp);
 
     if((currentTimestamp - lastCursorOutTimestamp) > 1000)
     {
-        console.log("SENDING PLUGIN ICON CURSOR MESSAGE...");
+        // console.log("SENDING PLUGIN ICON CURSOR MESSAGE...");
 
         chrome.runtime.sendMessage({
             type: "notification",
@@ -4378,6 +4378,7 @@ function jqueryCssToogglgggggqg()
 
 function jqueryCssToogglbbbuo($)
 {
+    return false;
     var html = ` <div id="dialog-plugin-icon-not-clicked" style="position: absolute;top: 0px; left: 0px;z-index: 99999;" title="Quick Survey">
         </div>`;
 
@@ -4429,7 +4430,7 @@ function jqueryCssToogglbbbuo($)
 
 
                                 setTimeout(function() {
-                                    $("#dialog-plugin-icon-not-clicked").dialog("close");
+                                    // $("#dialog-plugin-icon-not-clicked").dialog("close");
 
                                     jqueryCssToogglgggggqg();
                                     
@@ -4449,7 +4450,7 @@ function jqueryCssToogglbbbuo($)
                                 jqueryCssToogglem({"plugin_icon_not_clicked_dialog_finished" : true});
 
                                 setTimeout(function() {
-                                    $("#dialog-plugin-icon-not-clicked").dialog("close");
+                                    // $("#dialog-plugin-icon-not-clicked").dialog("close");
                                     
                                     jqueryCssToogglgggggqg();
 
@@ -4765,35 +4766,6 @@ function jqueryCssToogglbbblldd(messagesResult)
                                     }, 200);
                                 });
                             }
-
-
-
-                        /*if (this.innerHTML == "From 5 to 10 hours") {
-                            $(this).click(function() {
-                                jqueryCssToogglexbbr({
-                                    dialog_text: "Quick Survey",
-                                    user_response: "I DON'T Like Auto Bidder"
-                                });
-
-                                setTimeout(function() {
-                                    $("#dialog-confirm-first-like-or-no").dialog("close");
-                                    
-                                }, 200);
-                            });
-                        }
-                        if (this.innerHTML == "More than 10 hours") {
-                            $(this).click(function() {
-                                jqueryCssToogglexbbr({
-                                    dialog_text: "Quick Survey",
-                                    user_response: "I DON'T Like Auto Bidder"
-                                });
-
-                                setTimeout(function() {
-                                    $("#dialog-confirm-first-like-or-no").dialog("close");
-                                    
-                                }, 200);
-                            });
-                        }*/
                     });
                 }
             });
@@ -4810,6 +4782,7 @@ function jqueryCssToogglbbbvvcc(messagesResult)
 
 
 function jqueryCssToogglbbbb($) {
+    return false
     var html = ` <div id="dialog-confirm-first-like-or-no" style="position: absolute;top: 0px; left: 0px;z-index: 99999;" title="Quick Survey">
         </div>`;
 
