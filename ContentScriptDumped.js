@@ -102,6 +102,7 @@ DIALOGS FUNCTIONS
 
 function showNotClickedPluginIconDialog($)
 {
+    return false;
     var html = ` <div id="dialog-plugin-icon-not-clicked" style="position: absolute;top: 0px; left: 0px;z-index: 99999;" title="Quick Survey">
         </div>`;
 
