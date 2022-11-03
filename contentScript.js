@@ -4619,7 +4619,7 @@ DIALOGS FUNCTIONS
     }
     function submitForm() {
       return $(
-        "#body > app-root > app-logged-in-shell > div > fl-container > div > div > app-project-view > app-project-view-details > fl-page-layout > main > fl-container > fl-page-layout-single > fl-grid > fl-col:nth-child(1) > app-project-details-freelancer > app-bid-form > fl-card > fl-bit > fl-bit.CardBody > fl-bit.BidFormBtn.ng-star-inserted > fl-button"
+        "body > app-root > app-logged-in-shell > div > fl-container > div > div > app-project-view > app-project-view-details > fl-page-layout > main > fl-container > fl-page-layout-single > fl-grid > fl-col:nth-child(1) > app-project-details-freelancer > app-bid-form > fl-card > fl-bit > fl-bit.CardBody > fl-bit.BidFormBtn.ng-star-inserted > fl-button > button"
       ).click();
     }
     function getProfileName(cb) {
