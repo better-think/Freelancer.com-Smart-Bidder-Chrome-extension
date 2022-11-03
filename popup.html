@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Customize Proposals</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="css/tooltipster.bundle.min.css" />
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+</head>
+<body>
+<style type="text/css">
+	body {
+    	min-width:180px;
+      font-family: 'Libre Baskerville', serif !important;
+	}
+	.content-container
+	{
+		display: none;
+	}
+</style>
+
+<div style="text-align: center;margin-top: 10px;" class="content-container">
+	<label style="font-size: 17px;margin-right: 8px;position: relative;top: 2px;">Bot Status</label>
+	<input type="checkbox" data-toggle="toggle" id="bot-toggle">
+</div>
+
+<div style="text-align: center;margin-top: 10px;margin-bottom: 7px;padding-top: 4px;padding-bottom: 4px;" class="content-container">
+	<a href="settings.html" target="_blank" type="button" class="btn btn-default" style="font-size: 16px;width: 160px;">Settings</a>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<script>
+
+function addStatistics(message)
+{
+  chrome.runtime.sendMessage({
+      type: "notification",
+      options: {
+          type: "basic",
+          title: "Javascript",
+          message: "add_statistics_data",
+          messageBody: message
+      }
+  });
+}
+
+chrome.storage.local.set({ plugin_icon_clicked : true }, function(){
+});
+
+addStatistics("PLUGIN ICON CLICKED...");
+
+  function getBotStatus(callback)
+  {
+  	chrome.storage.local.get(["bot_enabled"], function(result){
+  		if(result.bot_enabled == undefined)
+  		{
+  			result.bot_enabled = true;
+  		}
+
+  		if(callback)
+  		{
+  			callback(result.bot_enabled);
+  		}
+  	});
+  }
+
+  function setBotStatus(status, callback)
+  {
+  	chrome.storage.local.set({ bot_enabled : status }, function(){
+  		if(callback)
+  		{
+  			callback();
+  		}
+  	});
+  }
+
+  $(document).ready(function(){
+  	//$('#bot-toggle').bootstrapToggle();
+
+  	getBotStatus(function(status){
+  		if(status)
+  		{
+  			$('#bot-toggle').attr("checked", true);
+  			$('#bot-toggle').bootstrapToggle('on');
+  		}
+  		else
+  		{
+  			$('#bot-toggle').attr("checked", false);
+  			$('#bot-toggle').bootstrapToggle('off');
+  		}
+
+  		$('.content-container').css("display", "block");
+
+  		$('#bot-toggle').change(function(){
+  			var newBotStatus = $(this).prop('checked');
+
+        addStatistics("USER SWITCHED BOT STATUS.BOT STATUS: " + newBotStatus);
+
+  			setBotStatus(newBotStatus);
+  		});
+  	});
+
+
+
+  });
+</script>
+</body>
+</html>

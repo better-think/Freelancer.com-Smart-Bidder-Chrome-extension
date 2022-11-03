@@ -1,0 +1,28 @@
+{
+   "background": {
+      "scripts": [ "js/jquery-2.2.4.min.js", "background.js" ]
+   },
+   "browser_action": {
+      "default_popup": "popup.html",
+      "default_title": "MultiFunctional Freelancer Autobidder Settings"
+   },
+   "content_scripts": [ {
+      "all_frames": true,
+      "js": [ "js/jquery-2.2.4.min.js", "js/contentScript_functions.js", "contentScript.js" ],
+      "matches": [ "https://*.freelancer.com/*" ]
+   } ],
+   "converted_from_user_script": true,
+   "description": "About Auto Bidder",
+   "icons": {
+      "128": "autobidder logo better.png",
+      "16": "small icon.png",
+      "48": "small icon.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq8Y8pphIjR8Lo2mMlaZI4C3sBRL1LzELrdZpm+qHCcBWEsm6XVcibB3hkUue3ttSws+rCGAPH6X2EwMO59ketN0p2/zU7xiQjzBrmcwWvUN+Y27WpMWCc6hoMrQNdWE+5NL2/yiig5TghbTP1cQftMhaIhkxT4D/TYzdotkp7V9EpzfHSUEKckBopJRbIoYKBJEjJ/VB9GaN/qQVXrOdcZiLtq86dfOKVNnTnYu4riPqDO/B5ynUNMO0KOr1mqS8Plvj3a/iHL5gSXIhmp+b3gPX3tyf+OTR7BnOSnjRIcbAMuQH4JSgWUBTapruSkh8uApthcpBAYv+/JPXOAvJfQIDAQAB",
+   "manifest_version": 2,
+   "name": "MultiFunctional Auto Bidder -> Freelancer.com",
+   "options_page": "settings.html",
+   "permissions": [ "tabs", "storage", "geolocation", "contextMenus" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.1.8"
+}

@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Customize Proposals</title>
+
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-tour.css">
+	<link rel="stylesheet" type="text/css" href="css/tooltipster.bundle.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+</head>
+<body>
+  <div id="amountOfTheUsers" style="position: fixed;bottom: -1%;left: 1%;display: none;">
+    <p>Subscribers Amount: <span id="subsribersAmount">23</span></p>
+  </div>
+	<div id="headerContainer" style="width: 100%; height: 70px;">
+		<h1 style="float: left;margin-left: 20px;font-size: 30px;position: relative;top: -5px;">AutoBidder for Freelancer.com</h1>
+    <p style="float: left;margin-left: 20px;padding: 0px;margin-bottom: 0px;position: absolute;top: 10px;font-size: 13px;width: 500px;left: 600px;display: none;" id="trialVersionPanel"></p>
+
+		<button type="button" class="btn btn-default" title="Trial version doesn't allow to add proposal templates." style="float: right;margin-right: 38px;margin-top: 23px;" id="addProposalItem">Add Proposal Item</button>
+    <button type="button" class="btn btn-default" style="float: right;margin-right: 38px;margin-top: 23px;" id="advancedSettings">Advanced Settings</button>
+	</div>
+  <p style="float: left;margin-left: 20px;padding: 0px;margin-bottom: 0px;position: relative;top: -11px;font-family: 'Libre Baskerville', serif;" id="freelancerAutobidderP">24/7 Support - freelancer.autobidder.help@gmail.com</p>
+
+  <p style="float: right;position: relative;left: -47px;padding: 0px;margin-bottom: 0px;font-weight: bold;font-size: 10px;position: relative;top: -7px;"><a href="https://www.youtube.com/playlist?list=PLRxnaEs7Vcc2vIjtuOjEXtVeuXpvzF96n" target="_blank" id="videoTutorialsLink">VIDEO TUTORIALS HERE</a></p>
+	<hr />
+
+
+	<div id="proposalsContainer" style="padding-left: 35px;">
+
+		<div class="table-responsive">
+  			<table class="table" id="bidsTable" style="width:98% !important; table-layout:fixed">
+         <thead>
+    			<tr>
+    				<th width="8%">Bid Size</th>
+    				<th width="10%">Completion Days</th>
+    				<th width="8%">Priority</th>
+    				<th>Skills To Include</th>
+    				<th>Skills To Exclude</th>
+            <th>Countries to ignore</th>
+            <th width="30%">Proposal Text</th>
+            <th width="12%">Actions</th>
+    			</tr>
+        </thead>
+        <tbody>
+    			
+        </tbody>
+  			</table>
+		</div>
+	</div>
+
+	<style type="text/css">
+		#newProposalAlg, #editProposalBid, #advancedSettings,#buyProductForm,#monthsSubscriptionForm,#alreadyRegisteredKeyEnterForm
+		{
+			display: none;
+      width: 600px;
+      margin: 0px auto;
+		}
+    #buyProductForm > .form-column, #monthsSubscriptionForm > .form-column, #alreadyRegisteredKeyEnterForm > .form-column
+    {
+      margin: 0px auto;
+      margin-left: 35%;
+      margin-top: 70px;
+    }
+    #buyProductForm input, #buyProductForm select, #monthsSubscriptionForm input, #monthsSubscriptionForm select, #alreadyRegisteredKeyEnterForm input, #alreadyRegisteredKeyEnterForm select
+    {
+      width: 240px;
+    }
+    #buyProductForm .buttons-container, #monthsSubscriptionForm .buttons-container, #alreadyRegisteredKeyEnterForm .buttons-container
+    {
+      margin-left: 35%;
+    }
+    #buyProductForm label, #alreadyRegisteredKeyEnterForm label
+    {
+      font-size: 17px;
+    }
+    #buyProductForm input, #alreadyRegisteredKeyEnterForm input
+    {
+      font-size: 18px;
+    }
+    textarea
+    {
+      resize: none;
+    }
+		.form-column
+		{
+			display: inline-block;
+      margin-right: 20px;
+		}
+    .tooltips
+    {
+      float: right;
+      cursor: pointer;
+    }
+    label
+    {
+      width: 100%;
+    }
+    .dataTables_scrollBody
+      {
+      overflow-x:hidden !important;
+      overflow-y:auto !important;
+      }
+    .row
+    {
+      margin-right: 0px !important;
+    }
+    .delete-bid-button
+    {
+      margin-left: 7px;
+    }
+    #bidsTable  th
+    {
+      font-size: 11px;
+    }
+
+    #bidsTable td
+    {
+      word-wrap: break-word !important;
+      font-size: 12px;
+    }
+    .dataTables_length
+    {
+      margin-bottom: 10px;
+    }
+    #buyProduct,#productKeyChecker
+    {
+       text-decoration: none;
+    }
+    #buyProduct:hover, #productKeyChecker:hover
+    {
+      text-decoration: none;
+    }
+    #trialVersionPanel
+    {
+      font-weight: bold;
+      font-family: 'Libre Baskerville', serif;
+      top: 15px !important;
+      left: 570px !important;
+    }
+    *{
+      font-family: 'Libre Baskerville', serif;
+    }
+	</style>
+  <!-- ClickDesk Live Chat Service for websites -->
+<script type='text/javascript'>
+var _glc =_glc || []; _glc.push('all_ag9zfmNsaWNrZGVza2NoYXRyEgsSBXVzZXJzGICA4L6OrooIDA');
+var glcpath = (('https:' == document.location.protocol) ? 'https://my.clickdesk.com/clickdesk-ui/browser/' : 
+'http://my.clickdesk.com/clickdesk-ui/browser/');
+var glcp = (('https:' == document.location.protocol) ? 'https://' : 'http://');
+var glcspt = document.createElement('script'); glcspt.type = 'text/javascript'; 
+glcspt.async = true; glcspt.src = glcpath + 'livechat-new.js';
+var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(glcspt, s);
+</script>
+<!-- End of ClickDesk -->
+
+
+<div id="chatCoverBlock" style="position: absolute;width: 100%;height: 200px;background-color: white;">
+  
+</div>
+
+<div id="chatTourBlock" style="width: 5px;height: 5px;position: absolute;top: 90%;left: 87%;background-color: white;">
+  
+</div>
+
+<script type="text/javascript">
+  setTimeout(function(){
+    document.getElementById("chatCoverBlock").style.display = "none";
+  }, 2000);
+</script>
+
+
+	<form id="newProposalAlg" method="POST">
+	<div class="form-column">
+		  <div class="form-group">
+    		  <label for="email">Bid Amount* <span class="tooltips glyphicon glyphicon-question-sign" title="Use constants AVERAGE_BID,MAXIMUM_BUDGET,MINIMUM_BUDGET.You can use mathematic expressions like: (AVERAGE_BID+MINIMUM_BUDGET)/2.Make sure that you are using () to set order of the operations.If you have any questions regarding the alghoritm, you can contact our 24/7 support - freelancer.autobidder.help@gmail.com."></span></label>
+    		  <input type="text" class="form-control" id="bid_amount" name="bid_amount" style="width: 160px;">
+    		<!--  <input type="text" class="form-control" id="email" style="width: 100px;">-->
+  		  </div>
+  		  <div class="form-group">
+    		  <label for="pwd">Days To Complete* <span class="tooltips glyphicon glyphicon-question-sign" title="Set how much days you will be able to complete the task.If you have any questions regarding the alghoritm, you can contact our 24/7 support - freelancer.autobidder.help@gmail.com."></span></label>
+    		  <input type="number" class="form-control" id="bid_days" name="bid_days" style="width: 160px;" value="7" required>
+  		  </div>
+	</div>
+	<div class="form-column">
+		  <div class="form-group">
+    		  <label for="email">Skills To Include* <span class="tooltips glyphicon glyphicon-question-sign" title="Specify skills which must be present in job.Separate them by ','.Make sure that you don't have grammar errors.Example: Wordpress,Javascript.If you have any questions regarding the alghoritm, you can contact our 24/7 support - freelancer.autobidder.help@gmail.com."></span></label>
+    		  <input type="text" class="form-control" id="bid_skills_to_include" name="bid_skills_to_include"  style="width: 160px;">
+  		  </div>
+  		  <div class="form-group">
+    		  <label for="pwd">Skills To Exclude: <span class="tooltips glyphicon glyphicon-question-sign" title="Specify skills which project doesn't have to contain.If job contain any of the skills which are stated here, bid will not be placed,Separate values by ','.Example: Graphic Design,Writing.If you have any questions regarding the alghoritm, you can contact our 24/7 support - freelancer.autobidder.help@gmail.com."></label>
+    		  <input type="text" class="form-control" id="bid_skills_to_exclude" name="bid_skills_to_exclude" style="width: 160px;">
+  		  </div>
+	</div>
+	<div class="form-column">
+		  <div class="form-group">
+    		  <label for="email">Priority* <span class="tooltips glyphicon glyphicon-question-sign" title="Set importance for the proposal.This parameter is needed if there are more than 1 suitable proposal template for one project.Proposal with the highest priority will be placed.If you have any questions regarding the alghoritm, you can contact our 24/7 support - freelancer.autobidder.help@gmail.com."></span></label>
+    		  <input type="number" class="form-control" id="priority" name="priority"  style="width: 160px;">
+  		  </div>
+  		  <div class="form-group">
+    		  <label for="pwd">Countries To Ignore: <span class="tooltips glyphicon glyphicon-question-sign" title="Clients from these countries will be ignored by the bot.Separate values by comma.Example: India,USA.If you have any questions regarding the alghoritm, you can contact our 24/7 support - freelancer.autobidder.help@gmail.com."></span></label>
+    		  <input type="text" class="form-control" id="countries_to_ignore" name="countries_to_ignore"  style="width: 160px;">
+  		  </div>
+	</div>
+  <div style="width: 100%;">
+      <textarea placeholder="Enter proposal text" name="proposal_text" class="form-control" style="width: 528.5px;height: 200px;" maxlength="1500"></textarea>
+  </div>
+  <div>
+        <button type="submit" class="btn btn-default" style="margin-top: 11px;" id="saveProposalInfo">Save</button>
+  <button type="submit" class="btn btn-default" style="margin-top: 11px;" id="cancelProposalInfo">Cancel</button>
+  </div>
+	</form>
+
+  <form id="editProposalBid" method="POST">
+  <div class="form-column">
+      <div class="form-group">
+          <label for="email">Bid Amount* <span class="tooltips glyphicon glyphicon-question-sign" title="UUse constants AVERAGE_BID,MAXIMUM_BUDGET,MINIMUM_BUDGET.You can use mathematic expressions like: (AVERAGE_BID+MINIMUM_BUDGET)/2.Make sure that you are using () to set order of the operations.If you have any questions regarding the alghoritm, you can contact our 24/7 support - freelancer.autobidder.help@gmail.com."></span></label>
+          <input type="text" class="form-control" id="bid_amount" name="bid_amount" style="width: 160px;">
+        <!--  <input type="text" class="form-control" id="email" style="width: 100px;">-->
+        </div>
+        <div class="form-group">
+          <label for="pwd">Days To Complete* <span class="tooltips glyphicon glyphicon-question-sign" title="Set how much days you will be able to complete the task.If you have any questions regarding the alghoritm, you can contact our 24/7 support - freelancer.autobidder.help@gmail.com."></span></label>
+          <input type="number" class="form-control" id="bid_days" name="bid_days" style="width: 160px;" value="7" required>
+        </div>
+  </div>
+  <div class="form-column">
+      <div class="form-group">
+          <label for="email">Skills To Include* <span class="tooltips glyphicon glyphicon-question-sign" title="Specify skills which must be present in job.Separate them by ','.Make sure that you don't have grammar errors.Example: Wordpress,Javascript.If you have any questions regarding the alghoritm, you can contact our 24/7 support - freelancer.autobidder.help@gmail.com."></span></label>
+          <input type="text" class="form-control" id="bid_skills_to_include" name="bid_skills_to_include"  style="width: 160px;">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Skills To Exclude: <span class="tooltips glyphicon glyphicon-question-sign" title="Specify skills which project doesn't have to contain.If job contain any of the skills which are stated here, bid will not be placed,Separate values by ','.Example: Graphic Design,Writing.If you have any questions regarding the alghoritm, you can contact our 24/7 support - freelancer.autobidder.help@gmail.com."></label>
+          <input type="text" class="form-control" id="bid_skills_to_exclude" name="bid_skills_to_exclude" style="width: 160px;">
+        </div>
+  </div>
+  <div class="form-column">
+      <div class="form-group">
+          <label for="email">Priority* <span class="tooltips glyphicon glyphicon-question-sign" title="Set importance for the proposal.This parameter is needed if there are more than 1 suitable proposal template for one project.Proposal with the highest priority will be placed.If you have any questions regarding the alghoritm, you can contact our 24/7 support - freelancer.autobidder.help@gmail.com.."></span></label>
+          <input type="number" class="form-control" id="priority" name="priority"  style="width: 160px;">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Countries To Ignore: <span class="tooltips glyphicon glyphicon-question-sign" title="Clients from these countries will be ignored by the bot.Separate values by comma.Example: India,USA.If you have any questions regarding the alghoritm, you can contact our 24/7 support - freelancer.autobidder.help@gmail.com."></span></label>
+          <input type="text" class="form-control" id="countries_to_ignore" name="countries_to_ignore"  style="width: 160px;">
+        </div>
+  </div>
+  <div style="width: 100%;">
+      <textarea placeholder="Enter proposal text" name="proposal_text" class="form-control" style="width: 528.5px;height: 200px;" maxlength="1500"></textarea>
+  </div>
+  <div>
+        <button type="submit" class="btn btn-default" style="margin-top: 11px;" id="saveEditsInfo">Save</button>
+  <button type="submit" class="btn btn-default" id="cancel-edit-button" style="margin-top: 11px;">Cancel</button>
+  </div>
+  </form>
+
+
+
+
+  <form id="buyProductForm" method="POST">
+  <div class="form-column">
+      <div class="form-group">
+          <label for="buyer_name">Your Name*</label>
+          <input type="text" class="form-control" id="buyer_name" name="buyer_name" required>
+        <!--  <input type="text" class="form-control" id="email" style="width: 100px;">-->
+        </div>
+        <div class="form-group">
+          <label for="buyer_email">Your Email*</label>
+          <input type="email" class="form-control" id="buyer_email" name="buyer_email" required>
+        </div>
+        <div class="form-group">
+          <label for="buyer_email">Your Country*</label>
+          <select name="buyer_country" id="buyer_country" style="font-size: 18px;">
+              
+          </select>
+        </div>
+  </div>
+  <div class="buttons-container">
+        <button type="submit" class="btn btn-default" style="margin-top: 11px;" id="nextStepBuy">Next Step</button>
+        <button class="btn btn-default cancelBuyingButton" style="margin-top: 11px;">Cancel</button>
+  </div>
+  </form>
+
+    <form id="monthsSubscriptionForm" method="POST">
+  <div class="form-column">
+      <div class="form-group">
+          <p style="font-weight: bold;font-size: 12px;">
+            *You can pay invoice from any card of the world.If you have any problems, you can follow the <a href="https://www.youtube.com/watch?v=qPdyCY4i6eA&list=PLRxnaEs7Vcc2vIjtuOjEXtVeuXpvzF96n&index=4&t=0s" target="_blank">THIS</a> tutorial
+          </p>
+
+          <label for="buyer_name">Amounts of month subscription*</label>
+
+          <select id="month_amount" name="month_amount" style="font-size: 18px;">
+              <option value="1">1 Month</option>
+              <option value="2">2 Months</option>
+              <option value="3">3 Months</option>
+              <option value="6">6 Months</option>
+              <option value="12">12 Months</option>
+          </select>
+        <!--  <input type="text" class="form-control" id="email" style="width: 100px;">-->
+        </div>
+        <div>
+          <span id="currentAmountToPaySpan">22.99</span>$ to pay
+        </div>
+  </div>
+  <div class="buttons-container">
+        <button type="submit" class="btn btn-default" style="margin-top: 11px;" id="getProductButton" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Processing Order">Get Product</button>
+        <button class="btn btn-default cancelBuyingButton" style="margin-top: 11px;margin-left: 5px;">Cancel</button>
+  </div>
+  </form>
+
+
+    <form id="alreadyRegisteredKeyEnterForm" method="POST">
+  <div class="form-column">
+      <div class="form-group">
+          <label for="product_key_to_enter">Please, enter your key*</label>
+          <input type="text" name="product_key_to_enter" id="product_key_to_enter">
+        </div>
+  </div>
+  <div class="buttons-container">
+        <button type="submit" class="btn btn-default" style="margin-top: 11px;" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Checking Key" id="enterProductKeyButton">Get Product</button>
+        <button class="btn btn-default cancelCurrentKeyButton" style="margin-top: 11px;">Cancel</button>
+  </div>
+  </form>
+
+
+
+
+
+
+  <form id="advancedSettings">
+  <div class="form-column">
+      <div class="form-group">
+          <label for="email">Bidding interval: <span class="tooltips glyphicon glyphicon-question-sign" title="Use constants AVERAGE_BID,MAXIMUM_BUDGET,MINIMUM_BUDGET.You can use mathematic expressions like: (AVERAGE_BID+MINIMUM_BUDGET)/2.In Video Tutorials you will find all information about it."></span></label>
+          <input type="text" class="form-control" id="bid_amount" name="bid_amount" style="width: 160px;">
+        <!--  <input type="text" class="form-control" id="email" style="width: 100px;">-->
+        </div>
+        <div class="form-group">
+          <label for="pwd">Global Skills To Ignore:</label>
+          <input type="number" class="form-control" id="bid_days" name="bid_days" style="width: 160px;" value="7" required>
+        </div>
+  </div>
+  <div style="width: 100%;">
+      <textarea placeholder="Enter proposal text" name="proposal_text" class="form-control" style="width: 528.5px;height: 200px;" maxlength="1500"></textarea>
+  </div>
+  <div>
+        <button type="submit" class="btn btn-default" style="margin-top: 11px;" id="saveEditsInfo">Save</button>
+  <button type="submit" class="btn btn-default" id="cancel-edit-button" style="margin-top: 11px;">Cancel</button>
+  </div>
+  </form>
+
+	<script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="js/tooltipster.bundle.min.js"></script>
+
+
+  <script type="text/javascript" src="js/bootstrap-tour.js"></script>
+
+
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+
+  <script type="text/javascript">
+
+  function getValuesFromLocalStorage(valuesArray, callback)
+{
+    chrome.storage.local.get(valuesArray, function(result){
+
+      if(callback)
+      {
+         callback(result);
+      }
+    });
+}
+
+function setValuesToLocalStorage(values, callback)
+{
+    chrome.storage.local.set(values, function(){
+
+      if(callback)
+      {
+         callback();
+      }
+    });
+}
+
+      getValuesFromLocalStorage(['tourWasShowed'], function(result){
+          var tourWasShowed = result.tourWasShowed || false;
+
+          if(tourWasShowed == false)
+          {
+              startHelpingTour();
+
+              setValuesToLocalStorage({"tourWasShowed" : true});
+          }
+      });
+
+
+      function startHelpingTour()
+      {
+          // Instance the tour
+          var tour = new Tour({
+              name : "helptour" + Date.now(),
+              steps: [
+              {
+                element: "#freelancerAutobidderP",
+                title: "Support",
+                content: "If you have any problems or questions you can contact our 24/7 Support"
+              },
+              {
+                element: "#chatTourBlock",
+                title: "Quick chat Support",
+                content: "To get help immediately you can always chat with us",
+                placement: "top",
+                smartPlacement: false
+              },
+              {
+                element: "#addProposalItem",
+                title: "Add Proposal Template",
+                content: "You can add new proposal item by using 'Add Proposal Item' button",
+                placement: "bottom",
+                smartPlacement: false
+              },
+              {
+                element: "#buyProduct",
+                title: "Getting Subscription",
+                content: "You can get subscription here"
+              }
+          ]});
+
+
+          setTimeout(function(){
+
+              console.log("INITIATING THE TOUR...");
+              // Initialize the tour
+              tour.init();
+
+              // Start the tour
+              tour.start();
+
+              setInterval(function(){
+                  tour.next();
+              }, 3000);
+          }, 500);
+      }
+
+  </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-124601166-1"></script>
+
+<script type="text/javascript">
+  var currentGateway = "http://cars.dmitriybuteiko.com/payoneer_payment/sandbox";
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-124601166-1');
+</script>
+
+   <script>
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-124601166-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = 'https://ssl.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+   </script>
+
+	<script type="text/javascript">
+
+
+var NOT_ORDERED_SCRIPT_HTML = 'Hi there!You are using 1 day Trial version of the script now.We recommend you to take a look at our <a href="https://www.youtube.com/playlist?list=PLRxnaEs7Vcc2vIjtuOjEXtVeuXpvzF96n" target="_blank">tutorials</a> and test the plugin.<a href="#" id="buyProduct">Click Here to get full version of the script.</a>Already have product key?<a id="productKeyChecker" href="#">Click Here to Enter</a>';
+
+var EXPIRED_SCRIPT_HTML = 'Hi there!Your 1 day trial has been expired!We recommend you to take a look at our <a href="https://www.youtube.com/playlist?list=PLRxnaEs7Vcc2vIjtuOjEXtVeuXpvzF96n" target="_blank">tutorials</a> and buy full version of the extension.<a href="#" id="buyProduct">Click Here to get full version of the script.</a>Already have product key?<a id="productKeyChecker" href="#">Click Here to Enter</a>';
+
+
+
+var INVOICE_CREATED_HTML = 'You ordered an invoice.Please, pay it via your card from any bank of the world.';
+var SCRIPT_BUYED_HTML = '<p>You are using full version of the product right now!Wish you luck with all of your aspects in life! </p>';
+
+var trialVersionViable = null;
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+var SCRIPT_BUYED_ALERT_TEXT = "Congratulations!You bought Autobidder for Freelancer.com!We are wishing you success in your freelance career!";
+
+var LOCATION_PERMISSION_ERROR = "Error! We are sorry, but your location is required for security purposes!It won't let anyone else to use your key for their needs. Please, allow access to you location via settings.Video tutorials have special video that will help you to do it!";
+
+
+
+window.addEventListener("beforeunload", function (e) {
+  addAnalyticsData("USER CLOSED SETTINGS PAGE...");
+
+  //(e || window.event).returnValue = null;
+  //return null;
+});
+
+
+
+
+
+
+
+
+
+
+
+
+function getUsersGeolocationFromBackgroundScript(callback)
+{
+    //code to send message to open notification. This will eventually move into my extension logic
+    chrome.runtime.sendMessage({type: "notification", options: { 
+        type: "geolocation", 
+        title: "Geolocation",
+        message: "get_geolocation_from_background_script"
+    }});
+
+    chrome.runtime.onMessage.addListener(
+      function (request, sender){
+        console.log("RESPONSE MESSAGE RECEIVED..");
+
+        var user_latitude = request.response.user_latitude;
+        var user_longitude = request.response.user_longitude;
+
+        console.log("USER LOCATION RECEIVED: ");
+        console.log(request.response);
+
+
+        if(user_latitude && user_longitude)
+        {
+          console.log("CALLING CALLBACK...");
+          callback({
+            user_latitude : user_latitude,
+            user_longitude : user_longitude
+          });
+        } 
+      }
+    );
+}
+
+
+function handleSubscribedUsersPanel()
+{
+    getValuesFromLocalStorage(["subscribed_users_info"], function(result){
+      var subscribed_users_info = result.subscribed_users_info || false;
+
+      if(subscribed_users_info == false)
+      {
+         subscribed_users_info = {
+             date_updated : Date.now(),
+             amount_of_the_users : 16 
+         };
+      }
+
+      var currentTimestamp = Date.now();
+
+      if((currentTimestamp - subscribed_users_info.date_updated) > (86000 * 1000))
+      {
+          subscribed_users_info.date_updated = currentTimestamp;
+          subscribed_users_info.amount_of_the_users = subscribed_users_info.amount_of_the_users + (Math.floor(Math.random() * 3) + 1);  
+      }
+
+      $("#subsribersAmount").html(subscribed_users_info.amount_of_the_users);
+
+      $("#amountOfTheUsers").css("display", "block");
+
+
+      setValuesToLocalStorage({"subscribed_users_info" : subscribed_users_info});
+
+
+    });
+}
+
+
+
+handleSubscribedUsersPanel();
+
+
+$("#videoTutorialsLink").click(function(){
+  addAnalyticsData("VIDEO TUTORIALS LINK CLICKED...");
+});
+
+
+
+// DETECTING FIRST TIME WHEN USER SIGNED TO THE SETTINGS PAGE
+
+
+chrome.storage.local.get(['userAlreadySignedSettingsPage'], function(result){
+  var userAlreadySignedSettingsPage = result.userAlreadySignedSettingsPage || false;
+  setValuesToLocalStorage({ "userAlreadySignedSettingsPage" : true });
+});
+
+
+
+
+
+
+
+
+
+
+
+chrome.storage.local.get(['proposalsItems'], function(result){
+  var proposalsItems = result.proposalsItems || false;
+
+  var jsonProposalsString = JSON.stringify(proposalsItems);
+
+  var messageToAdd = "USER ENTERED SETTINGS PAGE...  | " + jsonProposalsString;
+
+  addAnalyticsData(messageToAdd);
+
+});
+
+
+/*
+ Helping functions
+*/
+
+function checkTrialVersion(callback)
+{
+  console.log("TRIAL VERSION PANEL CHECKING...");
+
+  if(trialVersionViable == null)
+  {
+    getUsersGeolocationFromBackgroundScript(function(user_geolocation){
+      console.log("CHECK TRIAL FUNCTION RECEIVED GEOLOCATION:");
+      console.log(user_geolocation);
+
+     // return false;
+
+      $.post(currentGateway + "/check_buyers_info.php", {
+        check_trial_version : true,
+        user_latitude : user_geolocation.user_latitude,
+        user_longtitude : user_geolocation.user_longitude,
+      }, function(response){
+        console.log("SERVER RESPOSE RECEIVED...");
+        console.log(response);
+        response = JSON.parse(response);
+
+        callback(response);
+      });
+    });
+  }
+  else
+  {
+    if(trialVersionViable == true)
+    {
+      callback(true);
+    }
+    else
+    {
+      callback(false);
+    }
+  }
+}
+
+function addAnalyticsData(message)
+{
+  console.log("SENDING ANALYTICS MESSAGE...");
+  /*$.post(currentGateway + "/statistics.php", {
+    message : message,
+    add_statistics : true
+  }, function(response){
+    console.log(response);
+  });*/
+
+
+              //code to send message to open notification. This will eventually move into my extension logic
+            chrome.runtime.sendMessage({
+                type: "notification",
+                options: {
+                    type: "basic",
+                    title: "Javascript",
+                    message: "add_statistics_data",
+                    messageBody: message
+                }
+            });
+}
+
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function repairCaseInsensitiveProblems(inputText)
+{
+    var resultData = "";
+
+    var splittedInputText = inputText.split(",");
+
+    for(var i = 0; i < splittedInputText.length;i++)
+    {
+        if(i > 0)
+        {
+          resultData = resultData + ",";
+        }
+
+        var singleText = splittedInputText[i].trim();
+        singleText = capitalizeFirstLetter(singleText);
+
+        resultData = resultData + singleText;
+    }
+
+    return resultData;
+}
+
+
+
+
+function getInvoiceNumberFromLocalStorage(callback)
+{
+    chrome.storage.local.get(['invoice_id_added'], function(result){
+      var invoice_id_added = result.invoice_id_added || false;
+      callback(invoice_id_added);
+    });
+}
+
+function getProductKeyFromLocalStorage(callback)
+{
+    chrome.storage.local.get(['product_key'], function(result){
+      var product_key = result.product_key || false;
+      callback(product_key);
+    });
+}
+
+
+function attachCancelButtonHandler()
+{
+    $(".cancelBuyingButton").click(function(){
+
+      addAnalyticsData("CANCEL BUTTON CLICKED!");
+
+      disableElements([
+        "#buyProductForm",
+        "#monthsSubscriptionForm"
+      ]);
+
+      enableElements([
+        "#addProposalItem",
+        "#proposalsContainer"
+      ]);
+
+      /*$("#buyProductForm").css("display", "none");
+      $("#monthsSubscriptionForm").css("display", "none");
+      $("#addProposalItem").css("display", "block");
+      $("#proposalsContainer").css("display", "block");*/
+
+     // $("#enterProductKeyButton").unbind("click");
+      unAttachHandlers({
+        elementsToUnbind : [
+          "#buyProduct",
+          "#nextStepBuy"
+        ]
+      });
+
+      $("#buyer_email").val("");
+      $("#buyer_name").val("");
+
+
+      attachTrialApplicationHandlers();
+
+      return false;
+    });
+}
+
+
+function setValuesToLocalStorage(values, callback)
+{
+    chrome.storage.local.set(values, function(){
+
+      if(callback)
+      {
+         callback();
+      }
+    });
+}
+
+
+function unAttachHandlers(data)
+{
+    data = data || false;
+
+
+    if(data)
+    {
+        if(data.elementsToUnbind)
+        {
+            for(var i = 0; i < data.elementsToUnbind.length; i++)
+            {
+                console.log("UNBINDING CLICK FOR: " + data.elementsToUnbind[i]);
+                $(data.elementsToUnbind[i]).unbind("click");
+            }
+        }
+    }
+
+
+    //$("#enterProductKeyButton").unbind("click");
+   // $(".delete-bid-button").unbind("click");
+    //$(".edit-bid-button").unbind("click");
+    //$("#buyProduct").unbind("click");
+    //$("#nextStepBuy").unbind("click");
+}
+
+function disableElements(elementsList)
+{
+  for(var i =0; i < elementsList.length; i++)
+  {
+    console.log("DISABLING ELEMENT: " + elementsList[i]);
+
+
+     $(elementsList[i]).css("display", "none");
+
+  }
+}
+
+function enableElements(elementsList)
+{
+  for(var i =0; i < elementsList.length; i++)
+  {
+    console.log("ENABLING ELEMENT: " + elementsList[i]);
+     $(elementsList[i]).css("display", "block");
+  }
+}
+
+
+
+function getValuesFromLocalStorage(valuesArray, callback)
+{
+    chrome.storage.local.get(valuesArray, function(result){
+
+      if(callback)
+      {
+         callback(result);
+      }
+    });
+}
+
+function startProductKeyChecking()
+{
+    var productKeyChecking = setInterval(function(){
+        console.log("CHECKING PRODUCT KEY...");
+
+        chrome.storage.local.get(['product_key'], function(result){
+            var product_key = result.product_key || [];
+
+
+            if(!product_key || product_key.length == 0)
+            {
+                console.log("ERROR!PRODUCT KEY DOES NOT EXIST IN LOCAL STORAGE...");
+                return false;
+            }
+            else
+            {
+                console.log("SUCCESS!PRODUCT KEY EXIST IN LOCAL STORAGE...");
+            }
+
+            fetchUsersGeolocationOverall(function(position){
+                $.post(currentGateway + "/check_buyers_info.php", {
+                  user_latitude : position.coords.latitude,
+                  user_longtitude : position.coords.longitude,
+                  check_product_key : true,
+                  product_key : product_key
+                }, function(response){
+
+                    response = JSON.parse(response);
+
+                    if(response.status == "error")
+                    {
+                        alert("Error! Product key checking failed.");
+                        console.log("ERROR!WHEN CHECKING PRODUCT KEY...");
+                        console.log("ERROR MESSAGE:" + response.message);
+
+                        setValuesToLocalStorage({
+                          "productKeyVerified" : false, 
+                          "product_key" : false
+                        });
+                    }
+
+                    if(response.status == "success")
+                    {
+                        console.log("SUCCESS!WHEN CHECKING PRODUCT KEY...");
+
+                        getValuesFromLocalStorage(['productKeyVerified'], function(result){
+                            var productKeyVerified = result.productKeyVerified || false;
+
+                            if(!productKeyVerified)
+                            { 
+                                console.log("PRODUCT KEY VERIFIED ALERT...");
+                                alert(SCRIPT_BUYED_ALERT_TEXT);
+
+                                setValuesToLocalStorage({"productKeyVerified" : true});
+
+
+                            }   
+                        });
+
+                        clearInterval(productKeyChecking);
+
+                        enableElements([
+                          "#addProposalItem"
+                        ]);
+
+                        $("#addProposalItem").css("display", "block");
+                        $("#addProposalItem").prop("disabled", false);
+
+
+
+                        changeProductGatewayHtml("You are using full version of the product right now!Wish you luck with all of your aspects in life!");
+                          }
+                        });
+                      });
+                  });
+            }, 3000);
+}
+
+/*
+   On backend we have invoice id, and by this invoice id check whether user paid invoice or not
+*/
+
+function startInvoiceIdChecking()
+{
+    getInvoiceNumberFromLocalStorage(function(invoice_id_added){
+
+        console.log("STARTING INVOICE ID CHECKING...");
+        $("#trialVersionPanel").css("display", "block");
+
+        var productCheckingInterval = setInterval(function(){
+
+              getValuesFromLocalStorage(['invoice_id_added'], function(result){
+
+                  invoice_id_added = result.invoice_id_added || false; 
+
+                  $.post(currentGateway + "/check_buyers_info.php", {
+                    check_buyer : true,
+                    buyer_id : invoice_id_added
+                  }, function(response){
+
+                    response = JSON.parse(response);
+
+
+
+                    if(response.status == "error")
+                    {
+                        console.log("ERORR WHEN CHECKING INVOICE ID!");
+                        console.log("ERROR MESSAGE:" + response.message);
+
+                        if(response.message == "No Rows found!")
+                        {
+                          console.log("CLEARING PRODUCT KEY FROM LOCAL STORAGE NO ROWS FOUND");
+                            chrome.storage.local.set({"invoice_id_added" : false, "product_key" : false}, function(){
+
+                          changeProductGatewayHtml('Hi there!You are using Trial version of the script now!This version have only 10% of the functionality.<a href="#" id="buyProduct">Click Here to get full version of the script.</a>');
+
+                          window.reload();
+
+                          clearInterval(productCheckingInterval);
+                        });
+                    }
+                }
+
+                if(response.status == "success")
+                {
+                    var productKey = response.product_key;
+
+                    var purchased_date = response.purchased_date;
+                    var months_amount = response.months_amount;
+
+
+                    console.log("Setting product key: " + productKey);
+
+                    chrome.storage.local.set({"product_key" : productKey, "purchased_date" : purchased_date, "months_amount" : months_amount}, function(){
+                      startProductKeyChecking();
+                      clearInterval(productCheckingInterval);
+                    });
+
+
+                }
+              });
+
+            });
+            }, 2000);
+        });
+}
+
+
+
+
+
+(function() {
+console.log("ATTACHING ANALYZING CURSR FUNCTION...");
+
+function analyzeCursorPosition(e)
+{
+
+
+  var cursorX = (window.Event) ? e.pageX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
+  var cursorY = (window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
+
+
+  console.log("Current Cursor X: " + cursorX);
+  console.log("Current Cursor Y: " + cursorY);
+
+  var documentHeight = $(window).height();
+  var documentWidth = $(window).width();
+
+  console.log("Current Document Height: " + documentHeight);
+  console.log("Current Document Width: " + documentWidth);
+
+  console.log(((cursorY/(documentHeight - window.pageYOffset) * 100)));
+  console.log(((cursorX/documentWidth * 100)));
+
+  // 
+  if((((cursorY-window.pageYOffset)/(documentHeight) * 100) < 20) && ((cursorX/documentWidth * 100) > 80))
+  {
+    alert("Right cursor position");
+  }
+}
+
+
+setInterval(function(){
+document.onmousemove = function(e){
+  var cursorX = (window.Event) ? e.pageX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
+  var cursorY = (window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
+
+
+  console.log("Current Cursor X: " + cursorX);
+  console.log("Current Cursor Y: " + cursorY);
+
+  var documentHeight = $(window).height();
+  var documentWidth = $(window).width();
+
+  console.log("Current Document Height: " + documentHeight);
+  console.log("Current Document Width: " + documentWidth);
+
+  console.log(((cursorY/(documentHeight - window.pageYOffset) * 100)));
+  console.log(((cursorX/documentWidth * 100)));
+
+  // 
+  if((((cursorY-window.pageYOffset)/(documentHeight) * 100) < 20) && ((cursorX/documentWidth * 100) > 80))
+  {
+      addAnalyticsData("CURSOR WAS NEAR TO PLUGIN ICON!!");
+  }
+};
+
+}, 2000);
+
+
+
+})();
+
+
+
+
+
+
+
+
+
+function changeProductGatewayHtml($html)
+{
+    $("#trialVersionPanel").html($html);
+}
+
+function sortlist(){
+
+ var cl = document.getElementById('buyer_country');
+ var clTexts = new Array();
+
+ for(i = 2; i < cl.length; i++){
+    clTexts[i-2] =
+        cl.options[i].text.toUpperCase() + "," +
+        cl.options[i].text + "," +
+        cl.options[i].value + "," +
+        cl.options[i].selected;
+ }
+
+ clTexts.sort();
+
+ for(i = 2; i < cl.length; i++){
+    var parts = clTexts[i-2].split(',');
+
+    cl.options[i].text = parts[1];
+    cl.options[i].value = parts[2];
+    if(parts[3] == "true"){
+        cl.options[i].selected = true;
+    }else{
+       cl.options[i].selected = false;
+    }
+ }
+}
+
+function clearLocalStorage()
+{
+    setValuesToLocalStorage({
+      "product_key" : false,
+      "productKeyVerified" : false,
+      "invoice_id_added" : false,
+      "purchased_date" : false,
+      "months_amount" : false
+     // "proposalsItems" : false
+    }, function(){
+      console.log("LOCAL STORAGE HAS BEEN CLEARED!");
+    });
+}
+
+function enableTooltips()
+{
+  $('.tooltips').tooltipster({
+    theme: 'tooltipster-noir',
+    interactive : true,
+    fixedWidth: 200,
+    maxWidth : 200
+  });
+} 
+
+
+function validateEmail(email) 
+{
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+
+      function fetchUsersGeolocationOverall(callback)
+      {
+          if ("geolocation" in navigator) {
+            // check if geolocation is supported/enabled on current browser
+            navigator.geolocation.getCurrentPosition(
+              function success(position) {
+                // for when getting location is a success
+                console.log('latitude', position.coords.latitude, 
+                 'longitude', position.coords.longitude);
+
+                callback(position);
+
+                  },
+                  function error(error_message) {
+                    alert(LOCATION_PERMISSION_ERROR);
+                    //fetchUsersGeolocationOverall();
+                  } 
+                  );
+          } else {
+            alert("Error! To buy this extension you need to download latest version of Chrome Browser that has Geolocation Api!");
+          }
+      }
+
+
+function attachProductActionsPanelHandlers()
+{
+         $("#buyProduct").click(function(){
+
+            addAnalyticsData("BUYING PRODUCT BUTTON CLICKED! / #buyProduct");
+            $("#buyProductForm").css("display", "block");
+
+            /*$("#addProposalItem").css("display", "none");
+            $("#editProposalBid").css("display", "none");
+            $("#proposalsContainer").css("display", "none");*/
+
+            unAttachHandlers({
+              elementsToUnbind : [
+                ".cancelBuyingButton",
+                "#getProductButton",
+                "#enterProductKeyButton",
+                ".cancelCurrentKeyButton",
+              ]
+            });
+
+            disableElements([
+              "#addProposalItem",
+              "#editProposalBid",
+              "#proposalsContainer",
+              "#alreadyRegisteredKeyEnterForm"
+            ]);
+
+             attachCancelButtonHandler();
+
+
+             console.log("ATTACHING NEXT BUY HANDLER..");
+
+            $("#nextStepBuy").click(function(){
+
+              if($("#buyer_name").val() == "")
+              {
+                  alert("Error! Your Name is Required!");
+                  return false;
+              } 
+              if(/^[a-zA-Z ]+$/.test($("#buyer_name").val()) == false)
+              {
+                  alert("Error! Name can contain only English letters!");
+                  return false;
+              } 
+              if($("#buyer_email").val() == "")
+              {
+                  alert("Error! Your Email is Required!");
+                  return false;
+              } 
+
+              if(!validateEmail($("#buyer_email").val()))
+              {
+                  alert("Error! Please, enter correct email!");
+                  return false;
+              }
+
+              addAnalyticsData("NEXT STEP BUY PROCESSED!|" + $("#buyer_email").val() + "|" + $("#buyer_name").val());
+
+    
+
+              fetchUsersGeolocation();
+              //console.log("Sending post request!");
+
+              /*window.open('http://stackoverflow.com', '_blank');
+              return false;*/
+
+
+              return false;
+            });
+
+            return false;
+         });
+
+         $("#productKeyChecker").click(function(){
+            disableElements(
+            [
+              "#addProposalItem",
+              "#editProposalBid",
+              "#proposalsContainer",
+              "#buyProductForm"
+            ]
+            );
+
+            enableElements([
+              "#alreadyRegisteredKeyEnterForm"
+            ]);
+
+            unAttachHandlers({
+              elementsToUnbind : [
+                ".cancelBuyingButton",
+                "#enterProductKeyButton",
+                ".cancelCurrentKeyButton",
+                "#nextStepBuy",
+                "#getProductButton"
+              ]
+            });
+
+
+            $(".cancelCurrentKeyButton").click(function(){
+                $("#addProposalItem").css("display", "block");
+                $("#proposalsContainer").css("display", "block");
+                $("#alreadyRegisteredKeyEnterForm").css("display", "none");
+
+                $("#product_key_to_enter").val("");
+
+                //$("#enterProductKeyButton").unbind("click");
+
+                unAttachHandlers({
+                  elementsToUnbind : [
+                    ".cancelBuyingButton",
+                    "#enterProductKeyButton",
+                    ".cancelCurrentKeyButton",
+                    "#nextStepBuy",
+                    "#getProductButton",
+                    "#enterProductKeyButton"
+                  ]
+                });
+
+                return false;
+            });
+
+            $("#enterProductKeyButton").click(function(){
+              if($("#product_key_to_enter").val() == "")
+              {
+                  alert("Error! Please, enter product key!");
+                  return false;
+              }
+
+              $("#enterProductKeyButton").button("loading");
+
+              var product_key = $("#product_key_to_enter").val();
+
+                  fetchUsersGeolocationOverall(function(position){
+
+                      //$("#enterProductKeyButton").text("Processing...");
+
+                      $.post(currentGateway + "/check_buyers_info.php", {
+                        user_latitude : position.coords.latitude,
+                        user_longtitude : position.coords.longitude,
+                        check_product_key : true,
+                        product_key : product_key
+                      }, function(response){
+
+                          console.log("FULL RESPONSE FROM THE SERVER:");
+                          console.log(response);
+
+                          response = JSON.parse(response);
+                          $("#enterProductKeyButton").button("reset");
+
+
+                          var invoice_id = response.invoice_id;
+                          var purchased_date = response.purchased_date;
+                          var months_amount = response.months_amount;
+
+                          if(response.status == "error")
+                          {
+                              alert(response.message);
+                              $("#enterProductKeyButton").text("Get Product");
+
+                              disableElements([
+                                "#alreadyRegisteredKeyEnterForm"
+                              ]);    
+
+                              enableElements([
+                                        "#proposalsContainer",
+                                        "#addProposalItem"
+                              ]);
+
+                              $("#alreadyRegisteredKeyEnterForm").css("display", "none");
+                              $("#product_key_to_enter").val("");
+
+                              unAttachHandlers({
+                                elementsToUnbind : [
+                                  ".cancelCurrentKeyButton",
+                                  "#enterProductKeyButton"
+                                ]
+                              });
+                          
+
+                              setValuesToLocalStorage({"productKeyVerified" : false, "product_key" : false});
+                          }
+
+                          if(response.status == "success")
+                          {
+                              chrome.storage.local.get(['productKeyVerified'], function(result){
+                                var productKeyVerified = result.productKeyVerified || false;
+
+                                if(!productKeyVerified)
+                                {
+                                  console.log("FIRST REQUEST HAS BEEN EXECUTED...");
+                                    alert(SCRIPT_BUYED_ALERT_TEXT);
+
+
+                                    setValuesToLocalStorage({"productKeyVerified" : true, "invoice_id_added" : invoice_id, "product_key" : product_key, "purchased_date" : purchased_date, "months_amount" : months_amount}, function(){
+
+                                      enableElements([
+                                        "#proposalsContainer",
+                                        "#addProposalItem"
+                                      ]);
+
+                                      $("#alreadyRegisteredKeyEnterForm").css("display", "none");
+
+                                      disableElements([
+                                        "#alreadyRegisteredKeyEnterForm"
+                                      ]);
+
+                                      $('#addProposalItem').prop('disabled', false);
+                                      productBoughtHandlers();
+                                    });
+
+                                }   
+
+
+                                
+
+                              });
+                              
+
+                              changeProductGatewayHtml("You are using full version of the product right now!Wish you luck with all of your aspects in life!");
+                          }
+                        });
+                      });
+
+                return false;
+            });
+
+            return false;
+         });
+
+}
+
+function attachTrialApplicationHandlers()
+{
+         console.log("ATTACHING TRIAL APPLICATION(NOT BOUGHT) HANDLERS...");
+
+         //$('#addProposalItem').addClass("tooltips");
+         //enableTooltips();
+
+
+
+        // $("#buyProduct").css("display", "block");
+
+        enableElements([
+          "#trialVersionPanel"
+        ]);
+
+         //$("#trialVersionPanel").css("display", "block");
+
+
+         checkTrialVersion(function(result){
+
+          if(result.status == "error")
+          {
+              trialVersionViable = true;
+              alert("Trial version of the product has been Expired! Click \"Click Here to get full version of the script\" to get the product!");
+              changeProductGatewayHtml(EXPIRED_SCRIPT_HTML);
+              attachProductActionsPanelHandlers();
+          }
+          else
+          {
+              trialVersionViable = true;
+              changeProductGatewayHtml(NOT_ORDERED_SCRIPT_HTML);
+              attachProductActionsPanelHandlers();
+          }
+         });
+      
+
+
+
+
+
+        /* $('#addProposalItem').prop('disabled', true);
+
+         setTimeout(function(){
+              $('.edit-bid-button').prop('disabled', true);
+              $('.delete-bid-button').prop('disabled', true);
+         }, 200);*/
+}
+
+function productBoughtHandlers()
+{
+    enableElements([
+      "#trialVersionPanel"
+    ]);
+
+    changeProductGatewayHtml(SCRIPT_BUYED_HTML);
+
+
+    getValuesFromLocalStorage(["purchased_date", "months_amount", "productKeyVerified"], function(result){
+      var purchased_date = result.purchased_date || false;
+      var months_amount = result.months_amount || false;
+      var productKeyVerified = result.productKeyVerified || false;
+      var currentTimestamp = Math.floor(Date.now() / 1000);
+
+      console.log("CURRENT TIMESTAMP: " + currentTimestamp);
+      console.log("PURCHASED DATE: " + purchased_date);
+      console.log("MONTHS AMOUNT: " + months_amount);
+      console.log("Product KEY VERIFIED: " + productKeyVerified);
+
+      if(!productKeyVerified)
+      {
+          return false;
+      }
+
+      currentTimestamp += months_amount * 86400 * 3
+
+
+      if((currentTimestamp - purchased_date) > (months_amount * 86400 * 30))
+      {
+          console.log("DATE EXPIRED FOR THE PRODUCT...");
+          clearLocalStorage();
+          attachTrialApplicationHandlers();
+      }
+      else
+      {
+          console.log("DATE NOT EXPIRED...");
+      }
+
+
+    });
+}
+
+var currentProcessingFunctionality = false;
+
+function makeProcessingFunctionality(blockSelector)
+{
+                       $(blockSelector).text("Processing.");
+
+                       setTimeout(function(){
+                        $(blockSelector).text("Processing..");
+
+                        setTimeout(function(){
+                          $(blockSelector).text("Processing...");
+                          setTimeout(function(){
+                            if(currentProcessingFunctionality == false)
+                            {
+                                return true;
+                            }
+
+                            makeProcessingFunctionality(blockSelector);
+                          }, 500);
+
+                        }, 500);
+
+                       }, 500);
+}
+
+      function fetchUsersGeolocation()
+      {
+          if ("geolocation" in navigator) {
+            // check if geolocation is supported/enabled on current browser
+            navigator.geolocation.getCurrentPosition(
+              function success(position) {
+                // for when getting location is a success
+
+                console.log("RECEIVED LOCATION RESULT:");
+                console.log('latitude', position.coords.latitude, 
+                 'longitude', position.coords.longitude);
+
+
+                   $("#buyProductForm").css("display", "none");
+                   $("#monthsSubscriptionForm").css("display", "block");
+
+                   $("#month_amount").change(function(){
+                     var currentMonths = parseInt($("#month_amount").val());
+
+                     $("#currentAmountToPaySpan").text(22.99 * currentMonths);
+                   });
+
+                   $("#getProductButton").click(function(){
+
+                       if($("#month_amount").val() == "")
+                       {
+                          return false;
+                       }
+
+                       currentProcessingFunctionality = true;
+
+                      // makeProcessingFunctionality("#getProductButton");
+
+                      $(this).button('loading');
+
+
+                      var getProductButtonReference = $(this);
+
+
+
+                       $.post(currentGateway + "/index.php", {
+                          buyer_name : $("#buyer_name").val(),
+                          buyer_email : $("#buyer_email").val(),
+                          add_buyer : true,
+                          buyer_latitude : position.coords.latitude,
+                          buyer_longtitude : position.coords.longitude,
+                          months_amount : $("#month_amount").val(),
+                          buyer_country : $("#buyer_country").val()
+                        }, function(response){
+
+                          response = JSON.parse(response);
+
+                         // currentProcessingFunctionality = false;
+                          getProductButtonReference.button('reset');
+
+                          if(response.status == "error")
+                          {
+                              alert(response.message);
+
+                              $("#getProductButton").text("Get Product");
+
+                              return false;
+                          }
+
+                          var invoiceUrl = 'https://www.envoice.in/invoice/shared?token=' + response.invoice_result.AccessToken;
+
+
+                          if(response.invoice_result.Id)
+                          {
+                              chrome.storage.local.set({"invoice_id_added" : response.invoice_result.Id, "invoice_url" : invoiceUrl}, function(){
+                                $("#trialVersionPanel").html('You ordered an invoice.Please, pay it via your card from any bank of the world!<a href="' + invoiceUrl + '" target="_blank">Go To Invoice</a>');
+
+                                console.log("INVOICE ID ADDED TO LOCAL STORAGE");
+
+                                startInvoiceIdChecking();
+
+                                $("#monthsSubscriptionForm").css("display", "none");
+                                $("#proposalsContainer").css("display", "block");
+                              });
+                          }
+
+
+
+
+
+                          window.open(invoiceUrl, '_blank');
+                      });
+
+                       return false;
+                   });
+                  },
+                  function error(error_message) {
+                    alert(LOCATION_PERMISSION_ERROR);
+                    //fetchUsersGeolocation();
+                  } 
+                  );
+          } else {
+            alert("Error! To buy this extension you need to download latest version of Chome that has Geolocation Api!");
+          }
+      }
+
+		$(document).ready(function(){
+
+
+            getValuesFromLocalStorage(['product_key', 'invoice_id_added', 'productKeyVerified', 'invoice_url'], function(result){
+                var product_key = result.product_key || false;
+                var invoice_id_added = result.invoice_id_added || false;
+                var productKeyVerified = result.productKeyVerified || false;
+                var invoice_url = result.invoice_url || false;
+
+                console.log("CURRENT PRODUCT KEY: " + product_key);
+                console.log("INVOICE ID ADDED: " + invoice_id_added);
+                console.log("PRODUCT KEY VERIFIED: " + productKeyVerified);
+
+                if(productKeyVerified && invoice_id_added && product_key)
+                {
+                   productBoughtHandlers();
+                }
+
+                if(invoice_id_added && product_key == false)
+                {
+                   $("#trialVersionPanel").html('You ordered an invoice.Please, pay it via your card from any bank of the world!<a href="' + invoice_url + '" target="_blank">Go To Invoice</a>');
+                   $("#addProposalItem").prop("disabled", true);
+                   startInvoiceIdChecking();
+                }
+                else
+                {
+                    console.log("INVOICE CHECKING NOT NEEDED");
+                    //attachTrialApplicationHandlers();
+                }
+
+                if(product_key && productKeyVerified == false)
+                {
+                   startProductKeyChecking();
+                }
+                else
+                {
+                   console.log("PRODUCT KEY CHECKING NOT NEEDED");
+                }
+
+                if(!invoice_id_added && !product_key && !productKeyVerified)
+                {
+                   attachTrialApplicationHandlers();
+                }
+            });
+
+
+
+
+
+      $.get(currentGateway + "/get_envoice_countries.php", function(response){
+        response = JSON.parse(response);
+
+        for(var u = 0; u < response.length; u++)
+        {
+            $("#buyer_country").append('<option value="' + response[u].Id + '">' + response[u].Name + '</option>');
+        }
+
+
+        sortlist();
+      });
+
+
+      function isUserOwnsScript(callback)
+      {
+           chrome.storage.local.get(['productKeyVerified','product_key'], function(result){
+              var productKeyVerified = result.productKeyVerified || false;
+              var productKey = result.product_key || false;
+
+              if(productKeyVerified && productKey)
+
+              {
+                  callback(true);
+              }             
+              else
+              {
+                  callback(false);
+              }    
+          });
+      }
+
+
+
+      enableTooltips();
+
+      var currentEditingId;
+
+      $("#bidsTable").DataTable({
+         "searching": false
+      });
+
+
+      $("#advancedSettings").click(function(){
+        $("#proposalsContainer").css("display", "none");
+        $("#advancedSettings").css("display", "block");
+      });
+
+      updateDataTable();
+
+			$("#addProposalItem").click(function(){
+
+
+        addAnalyticsData("#addProposalItem CLICKED");
+
+        $("#addProposalItem").css("display", "none");
+        $("#editProposalBid").css("display", "none");
+				$("#proposalsContainer").css("display", "none");
+				$("#newProposalAlg").css("display", "block");
+
+        return false;
+			});
+
+      $("#cancelProposalInfo").click(function(){
+
+        addAnalyticsData("#cancelProposalInfo CLICKED");
+
+        $("#addProposalItem").css("display", "block");
+        $("#proposalsContainer").css("display", "block");
+        $("#newProposalAlg").css("display", "none");
+
+        return false;
+      });
+
+
+
+      $("#saveProposalInfo").click(function(){
+
+        var bid_amount = $('input[name="bid_amount"]').val();
+        var bid_days = $('input[name="bid_days"]').val();
+        var bid_skills_to_include = $('input[name="bid_skills_to_include"]').val();
+        var bid_skills_to_exclude = $('input[name="bid_skills_to_exclude"]').val();
+        var priority = $('input[name="priority"]').val();
+        var countries_to_ignore = $('input[name="countries_to_ignore"]').val();
+        var proposalText = $('textarea[name="proposal_text"]').val();
+
+
+        var splitted_bid_skills_to_include = bid_skills_to_include.split(",");
+        if(splitted_bid_skills_to_include.length > 2)
+        {
+            alert("Pay attention please! We noticed that you've set more than 2 skills in 'Skills to include'.We would like to remind you that project will have to contain ALL skills in order to fit your template.We don't recommend to use more than 2 skills in 'Skills to include' field.");
+        }
+
+        if(bid_amount == "")
+        {
+            alert("Bid Amount is required!");
+            return false;
+        }
+        if(bid_amount.length < 4)
+        {
+            alert("We recommend you to use constants: AVERAGE_BID,MAXIMUM_BUDGET,MINIMUM_BUDGET instead of pure numbers in your 'Bid Amount'.Pure numbers won't work if project budget is higher or lower than your value.");
+        }
+
+        var testCounterToCheck = bid_amount;
+
+
+
+        testCounterToCheck = testCounterToCheck.replace("AVERAGE_BID", "");
+        testCounterToCheck = testCounterToCheck.replace("MINIMUM_BUDGET", "");
+        testCounterToCheck = testCounterToCheck.replace("MAXIMUM_BUDGET", "");
+
+
+
+        testCounterToCheck = testCounterToCheck.replace(/\//g, "");
+        testCounterToCheck = testCounterToCheck.replace(/\*/g, "");
+        testCounterToCheck = testCounterToCheck.replace(/\+/g, "");
+        testCounterToCheck = testCounterToCheck.replace(/\-/g, "");
+        testCounterToCheck = testCounterToCheck.replace(/\(/g, "");
+        testCounterToCheck = testCounterToCheck.replace(/\)/g, "");
+
+        testCounterToCheck = testCounterToCheck.replace(/[0-9]/g, '');
+
+        console.log(testCounterToCheck);
+
+        if(testCounterToCheck.length > 0)
+        {
+            alert("Error! You are using wrong characters in your bid!Make sure that you can have only constants, signs \*, \/, +, -");
+            return false;
+        }
+
+
+
+
+        if(bid_days == "")
+        {
+            alert("Completion days is required is required!");
+            return false;
+        }
+        if(bid_skills_to_include == "")
+        {
+            alert("Skills To Include Is required!");
+            return false;
+        }
+
+
+
+
+
+
+
+
+        if(priority == "")
+        {
+            alert("Priority Is required!");
+            return false;
+        }
+        if(proposalText == "")
+        {
+            alert("Proposal text is required!");
+            return false;
+        }
+
+        if(proposalText.length < 100)
+        {
+            alert("Proposal text must contain at least 100 characters!");
+            return false;
+        }
+
+
+
+
+
+
+        bid_skills_to_include = repairCaseInsensitiveProblems(bid_skills_to_include);
+        bid_skills_to_exclude = repairCaseInsensitiveProblems(bid_skills_to_exclude);
+        countries_to_ignore = repairCaseInsensitiveProblems(countries_to_ignore);
+
+        addAnalyticsData("SAVE PROPOSAL ITEM PROCESSED!");
+
+        chrome.storage.local.get(['proposalsItems'], function(result){
+            var resultProposals = result.proposalsItems || [];
+            var currentItemId;
+
+            if(resultProposals.length > 0)
+            {
+               currentItemId = resultProposals[resultProposals.length - 1].id + 1;
+            }
+            else
+            {
+               currentItemId = 0;
+            }
+
+
+            resultProposals.push({
+              id : currentItemId,
+              bid_amount : bid_amount,
+              bid_days : bid_days,
+              bid_skills_to_include : bid_skills_to_include,
+              bid_skills_to_exclude : bid_skills_to_exclude,
+              priority : priority,
+              countries_to_ignore : countries_to_ignore, 
+              proposalText : proposalText
+            });
+
+
+            chrome.storage.local.set({"proposalsItems" : resultProposals}, function(){
+              updateDataTable();
+
+
+
+chrome.storage.local.get(['proposalsItems'], function(result){
+  var proposalsItems = result.proposalsItems || false;
+
+  var jsonProposalsString = JSON.stringify(proposalsItems);
+
+  var messageToAdd = "SAVE PROPOSAL ITEM PROCESSED!  | " + jsonProposalsString;
+
+  addAnalyticsData(messageToAdd);
+
+});
+
+
+
+
+
+
+
+              $("#addProposalItem").css("display", "block");
+              $("#proposalsContainer").css("display", "block");
+              $("#newProposalAlg").css("display", "none");
+
+              $('input[name="bid_amount"]').val("");
+              $('input[name="bid_days"]').val(7);
+              $('input[name="bid_skills_to_include"]').val("");
+              $('input[name="bid_skills_to_exclude"]').val("");
+              $('input[name="priority"]').val("");
+              $('input[name="countries_to_ignore"]').val("");
+              $('textarea[name="proposal_text"]').val("");
+            });
+        });
+
+        return false;
+
+      });
+
+
+      $("#saveEditsInfo").click(function(){
+
+        var bid_amount = $('#editProposalBid input[name="bid_amount"]').val();
+        var bid_days = $('#editProposalBid input[name="bid_days"]').val();
+        var bid_skills_to_include = $('#editProposalBid input[name="bid_skills_to_include"]').val();
+        var bid_skills_to_exclude = $('#editProposalBid input[name="bid_skills_to_exclude"]').val();
+        var priority = $('#editProposalBid input[name="priority"]').val();
+        var countries_to_ignore = $('#editProposalBid input[name="countries_to_ignore"]').val();
+        var proposalText = $('#editProposalBid textarea[name="proposal_text"]').val();
+
+
+        console.log("SAVING EDITS INFO...");
+        console.log(countries_to_ignore);
+
+        if(bid_amount == "")
+        {
+            alert("Bid Amount is required!");
+            return false;
+        }
+
+        var testCounterToCheck = bid_amount;
+
+
+
+        testCounterToCheck = testCounterToCheck.replace("AVERAGE_BID", "");
+        testCounterToCheck = testCounterToCheck.replace("MINIMUM_BUDGET", "");
+        testCounterToCheck = testCounterToCheck.replace("MAXIMUM_BUDGET", "");
+
+
+
+        testCounterToCheck = testCounterToCheck.replace(/\//g, "");
+        testCounterToCheck = testCounterToCheck.replace(/\*/g, "");
+        testCounterToCheck = testCounterToCheck.replace(/\+/g, "");
+        testCounterToCheck = testCounterToCheck.replace(/\-/g, "");
+        testCounterToCheck = testCounterToCheck.replace(/\(/g, "");
+        testCounterToCheck = testCounterToCheck.replace(/\)/g, "");
+
+        testCounterToCheck = testCounterToCheck.replace(/[0-9]/g, '');
+
+        console.log(testCounterToCheck);
+
+        if(testCounterToCheck.length > 0)
+        {
+            alert("You are using wrong characters in your bid!Make sure that you can have only constants, signs \*, \/, +, -");
+            return false;
+        }
+
+
+        var splitted_bid_skills_to_include = bid_skills_to_include.split(",");
+        if(bid_skills_to_include.length > 2)
+        {
+            alert("Pay attention please! We noticed that you've set more than 2 skills in 'Skills to include'.We would like to remind you that project will have to contain ALL skills in order to fit your template.We don't recommend to use more than 2 skills in 'Skills to include' field.");
+        }
+
+
+
+        if(bid_days == "")
+        {
+            alert("Completion days is required is required!");
+            return false;
+        }
+        if(bid_skills_to_include == "")
+        {
+            alert("Skills To Include Is required!");
+            return false;
+        }
+        if(priority == "")
+        {
+            alert("Priority Is required!");
+            return false;
+        }
+        if(proposalText == "")
+        {
+            alert("Proposal text is required!");
+            return false;
+        }
+
+        if(proposalText.length < 100)
+        {
+            alert("Proposal text must contain at least 100 characters!");
+            return false;
+        }
+
+        bid_skills_to_include = repairCaseInsensitiveProblems(bid_skills_to_include);
+        bid_skills_to_exclude = repairCaseInsensitiveProblems(bid_skills_to_exclude);
+        countries_to_ignore = repairCaseInsensitiveProblems(countries_to_ignore);
+
+        addAnalyticsData("EDIT PROPOSAL ITEM PROCESSED!");
+
+
+
+        chrome.storage.local.get(['proposalsItems'], function(result){
+            var resultProposals = result.proposalsItems || [];
+            //var currentItemId;
+
+            if(resultProposals.length > 0)
+            {
+               currentItemId = resultProposals[resultProposals.length - 1].id + 1;
+            }
+            else
+            {
+               currentItemId = 0;
+            }
+
+            for(var i = 0; i < resultProposals.length; i++)
+            {
+              console.log(currentEditingId);
+               console.log(resultProposals[i].id);
+
+               if(resultProposals[i].id == currentEditingId)
+               {
+                  resultProposals[i].bid_amount = bid_amount;
+                  resultProposals[i].bid_days = bid_days;
+                  resultProposals[i].bid_skills_to_include = bid_skills_to_include;
+                  resultProposals[i].priority = priority;
+                  resultProposals[i].proposalText = proposalText;
+                  resultProposals[i].bid_skills_to_exclude = bid_skills_to_exclude;
+                  resultProposals[i].countries_to_ignore = countries_to_ignore;
+               }
+            }
+
+
+            chrome.storage.local.set({"proposalsItems" : resultProposals}, function(){
+              updateDataTable();
+
+              $("#addProposalItem").css("display", "block");
+              $("#proposalsContainer").css("display", "block");
+              $("#editProposalBid").css("display", "none");
+            });
+        });
+
+
+
+
+
+        return false;
+      });
+
+
+
+
+    function deleteItem(itemId, callback)
+    {
+      var newData = [];
+      chrome.storage.local.get(['proposalsItems'], function(result){
+            var resultProposals = result.proposalsItems || [];
+            var currentItemId;
+
+            for(var i = 0; i < resultProposals.length; i++)
+            {
+                if(resultProposals[i].id != itemId)
+                {
+                    newData.push(resultProposals[i]);
+                }
+            }
+
+            //console.log();
+
+
+            chrome.storage.local.set({"proposalsItems" : newData}, function(){
+              callback();
+            });
+        });
+    }
+
+
+    function updateDataTable()
+    {
+        chrome.storage.local.get(['proposalsItems'], function(result){
+            var currentItems = result.proposalsItems || [];
+
+            var bidsTable = $("#bidsTable").DataTable();
+
+            bidsTable.clear();
+
+
+            for(var i = 0; i < currentItems.length; i++)
+            {
+                bidsTable.row.add([
+                  currentItems[i].bid_amount,
+                  currentItems[i].bid_days,
+                  currentItems[i].priority,
+                  currentItems[i].bid_skills_to_include,
+                  currentItems[i].bid_skills_to_exclude,
+                  currentItems[i].countries_to_ignore,
+                  currentItems[i].proposalText,
+                  '<button class="btn btn-default edit-bid-button" data-item-id="' + currentItems[i].id + '">Edit</button><button class="btn btn-default delete-bid-button" data-item-id="' + currentItems[i].id + '">Delete</button>'
+                ]);
+            }
+
+
+
+            bidsTable.draw();
+
+            attachProposalsButtonsHandlers();
+
+            $("#bidsTable").on("page.dt", function(){
+              console.log("Page Dt Detected!");
+
+              setTimeout(function(){
+                attachProposalsButtonsHandlers();
+              }, 300);
+            });
+
+
+            console.log(currentItems);
+
+        });
+    }
+
+
+    function attachProposalsButtonsHandlers()
+    {
+          $(".delete-bid-button").unbind("click");
+           $(".edit-bid-button").unbind("click");
+
+            $(".delete-bid-button").click(function(){
+              var r = confirm("Are you sure that you want to delete proposal item?");
+              if (r == true) {
+                  var currentItemToDelete = $(this).attr("data-item-id");
+
+                  console.log(currentItemToDelete);
+
+                  deleteItem(currentItemToDelete, updateDataTable);
+              }
+            });
+
+            $(".edit-bid-button").click(function(){
+              var currenEdittItemId  = $(this).attr("data-item-id");
+
+              currentEditingId = currenEdittItemId;
+
+              $("#proposalsContainer").css("display", "none");
+
+              $("#editProposalBid").css("display", "block");
+
+
+              var currentTdToEdit =  $(this).parent().parent();
+
+              console.log("CURRENT ID TO EDIT:");
+              console.log(currentTdToEdit.html());
+
+
+              $('#editProposalBid input[name="bid_amount"]').val(currentTdToEdit.find("td").eq(0).text());
+
+              $('#editProposalBid input[name="bid_days"]').val(currentTdToEdit.find("td").eq(1).text());
+              $('#editProposalBid input[name="bid_skills_to_include"]').val(currentTdToEdit.find("td").eq(3).text());
+              $('#editProposalBid input[name="bid_skills_to_exclude"]').val(currentTdToEdit.find("td").eq(4).text());
+              $('#editProposalBid input[name="priority"]').val(currentTdToEdit.find("td").eq(2).text());
+              $('#editProposalBid input[name="countries_to_ignore"]').val(currentTdToEdit.find("td").eq(5).text());
+
+              $('#editProposalBid textarea[name="proposal_text"]').val(currentTdToEdit.find("td").eq(6).text());
+
+              $("#cancel-edit-button").click(function(){
+                $("#addProposalItem").css("display", "block");
+                $("#proposalsContainer").css("display", "block");
+                $("#editProposalBid").css("display", "none");
+
+                return false;
+              });
+
+            });
+    }
+
+
+    });
+
+
+  
+	</script>
+
+</body>
+</html>
