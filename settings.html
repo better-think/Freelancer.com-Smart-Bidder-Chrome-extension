@@ -1740,7 +1740,8 @@ function makeProcessingFunctionality(blockSelector)
       });
 
       $("#restoreProposalItem").click(function(){
-        $("#import_json_file").click();
+        var yes = window.confirm('Waring! It will be overwrite your existing proposals. Are you sure?')
+        yes && $("#import_json_file").click();
       });
 
       $('#import_json_file').on('change', function () {
@@ -2267,9 +2268,15 @@ chrome.storage.local.get(['proposalsItems'], function(result){
             });
     }
     function saveName() {
-      const name = prompt('Your name')
-      chrome.storage.local.set({ProfileName: name}, function(){
-        alert(`Your Name "${name}"" will be used in proposal to sign`)
+      chrome.storage.local.get(['ProfileName'], function(result){
+        const ProfileName = result.ProfileName || ''
+        const name = prompt('Your name', ProfileName) || ProfileName
+        chrome.storage.local.set({ProfileName: name}, function(){
+          alert(`Your Name "${name}"" will be used in proposal to sign`)
+          chrome.storage.local.get(['ProfileName'], function(result){
+            console.log('ProfileName: ', result.ProfileName)
+          })
+        });
       });
     }
     saveName()
