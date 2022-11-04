@@ -4602,6 +4602,19 @@ DIALOGS FUNCTIONS
       const score = requiredSkills.filter((s) => mySkills.includes(s)).length;
       return score;
     }
+    function getDescription() {
+      try {
+        var descriptionElt= $('body > app-root > app-logged-in-shell > div > fl-container > div > div > app-project-view > app-project-view-details > fl-page-layout > main > fl-container > fl-page-layout-single > fl-grid > fl-col:nth-child(1) > fl-card > fl-bit > fl-bit.CardBody > app-project-details-description > fl-bit > fl-interactive-text > span > fl-text > span')
+        return descriptionElt.text().trim() || ''
+      } catch (err) {
+        console.error(err)
+        return ''
+      }
+    }
+    function getSkillsInDescription() {
+      var description = getDescription();
+      return getSkillsFromContent(description || '')
+    }
     function getProjectSkills() {
       var skillsParent = $(
         "body > app-root > app-logged-in-shell > div > fl-container > div > div > app-project-view > app-project-view-details > fl-page-layout > main > fl-container > fl-page-layout-single > fl-grid > fl-col:nth-child(1) > fl-card > fl-bit > fl-bit.CardBody > app-project-details-skills > fl-bit"
@@ -4633,13 +4646,14 @@ DIALOGS FUNCTIONS
         // order by priority
         currentItems = currentItems.sort((a, b) => a.priority - b.priority);
         var requiredSkills = getProjectSkills();
+        var skillsInDescription = getSkillsInDescription();
         var itemsWithScore = currentItems
           .map((item) => {
             // bid skills is always lowercased string
             var bidSkills = item.bid_skills_to_include
               .split(",")
               .filter((s) => s);
-            var score = getSkillsScore(requiredSkills, bidSkills);
+            var score = getSkillsScore(requiredSkills, [...bidSkills, ...skillsInDescription]);
             item.score = score;
             return item;
           })

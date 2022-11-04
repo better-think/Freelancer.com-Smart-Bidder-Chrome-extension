@@ -11,7 +11,8 @@
       "max_budget": "100",
       "min_budget": "1",
       "priority": "1",
-      "proposalText": "hi this is a test"
+      "proposalText": "hi this is a test",
+      "skills_in_proposal": "react,web3"
     },
     {
       "bid_amount": "AVERAGE_BID",
@@ -24,7 +25,8 @@
       "max_budget": "100",
       "min_budget": "1",
       "priority": "2",
-      "proposalText": "hi this is a test2"
+      "proposalText": "hi this is a test2",
+      "skills_in_proposal": "react,web3"
     }
   ]
 }
