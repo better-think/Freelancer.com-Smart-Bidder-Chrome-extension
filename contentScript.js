@@ -4676,8 +4676,8 @@ DIALOGS FUNCTIONS
               .toLowerCase()
               .split(",")
               .filter((s) => s);
-            relatedSkills = [...bidSkills, ...skillsInDescription]
-            var score = getSkillsScore(requiredSkills, relatedSkills);
+            var skills_in_proposal = (item.skills_in_proposal || '').split(',')
+            var score = getSkillsScore([...requiredSkills, ...skillsInDescription], [...bidSkills, ...skills_in_proposal]);
             item.score = score;
             return item;
           })
