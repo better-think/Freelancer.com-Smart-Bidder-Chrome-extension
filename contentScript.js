@@ -4595,6 +4595,26 @@ DIALOGS FUNCTIONS
     }
     /**
      *
+     * @param {String} text
+     * @returns {String}
+     */
+    function getSkillsFromContent(text) {
+      return All_Skills.filter((skill) => {
+        try {
+          const reg = new RegExp(skill, "gi");
+          return text.search(reg) > -1;
+        } catch (err) {
+          console.error(err);
+          return false;
+        }
+      })
+        .join(",")
+        .toLowerCase()
+        .split(",")
+        .filter((s) => s);
+    }
+    /**
+     *
      * @param {Array<String>} requiredSkills
      * @param {Array<String>} mySkills
      */
@@ -4647,18 +4667,20 @@ DIALOGS FUNCTIONS
         currentItems = currentItems.sort((a, b) => a.priority - b.priority);
         var requiredSkills = getProjectSkills();
         var skillsInDescription = getSkillsInDescription();
+        var relatedSkills = []
+
         var itemsWithScore = currentItems
           .map((item) => {
             // bid skills is always lowercased string
             var bidSkills = item.bid_skills_to_include
               .split(",")
               .filter((s) => s);
-            var score = getSkillsScore(requiredSkills, [...bidSkills, ...skillsInDescription]);
+            relatedSkills = [...bidSkills, ...skillsInDescription]
+            var score = getSkillsScore(requiredSkills, relatedSkills);
             item.score = score;
             return item;
           })
           .sort((a, b) => (a.score > b.score ? -1 : 1)); // filter by score
-
         // best match
         const bestMatch = itemsWithScore[0] || {};
         if (bestMatch.proposalText) {
@@ -4666,8 +4688,7 @@ DIALOGS FUNCTIONS
             fillForm(bestMatch.proposalText + '\n ' + profileName);
           })
         } else {
-          // todo general proposal
-          alert("Please add proposal for skills" + requiredSkills.join(", "));
+          alert("Please add proposals for skills " + requiredSkills.join(", "));
         }
         cb();
       });

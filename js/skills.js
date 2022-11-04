@@ -1,4 +1,4 @@
-const All_Skills = [
+window.All_Skills = [
   "PHP",
   "HTML",
   "JavaScript",
@@ -1120,24 +1120,3 @@ const All_Skills = [
   "Snowflake",
   "Digital System Engineering",
 ];
-
-/**
- *
- * @param {String} text
- * @returns {String}
- */
-function getSkillsFromContent(text) {
-  return All_Skills.filter((skill) => {
-    try {
-      const reg = new RegExp(skill, "gi");
-      return text.search(reg) > -1;
-    } catch (err) {
-      console.error(err);
-      return false;
-    }
-  })
-    .join(",")
-    .toLowerCase()
-    .split(",")
-    .filter((s) => s);
-}

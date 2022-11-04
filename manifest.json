@@ -9,7 +9,7 @@
    "content_scripts": [ {
       "all_frames": true,
       "css": ["css/bid-action.css"],
-      "js": [ "js/jquery-2.2.4.min.js", "js/contentScript_functions.js", "contentScript.js", "js/skills.js"  ],
+      "js": [ "js/jquery-2.2.4.min.js", "js/skills.js", "js/contentScript_functions.js", "contentScript.js" ],
       "matches": [ "https://*.freelancer.com/*"]
    } ],
    "converted_from_user_script": true,
