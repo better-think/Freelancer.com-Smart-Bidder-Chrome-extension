@@ -4673,6 +4673,7 @@ DIALOGS FUNCTIONS
           .map((item) => {
             // bid skills is always lowercased string
             var bidSkills = item.bid_skills_to_include
+              .toLowerCase()
               .split(",")
               .filter((s) => s);
             relatedSkills = [...bidSkills, ...skillsInDescription]

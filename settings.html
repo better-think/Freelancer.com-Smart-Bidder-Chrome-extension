@@ -1651,7 +1651,26 @@ function makeProcessingFunctionality(blockSelector)
       }
 
 		$(document).ready(function(){
-
+      /**
+         *
+         * @param {String} text
+         * @returns {String}
+         */
+        function getSkillsFromContent(text) {
+          return All_Skills.filter((skill) => {
+            try {
+              const reg = new RegExp(skill, "gi");
+              return text.search(reg) > -1;
+            } catch (err) {
+              console.error(err);
+              return false;
+            }
+          })
+            .join(",")
+            .toLowerCase()
+            .split(",")
+            .filter((s) => s);
+        }
 
             getValuesFromLocalStorage(['product_key', 'invoice_id_added', 'productKeyVerified', 'invoice_url'], function(result){
                 var product_key = result.product_key || false;
